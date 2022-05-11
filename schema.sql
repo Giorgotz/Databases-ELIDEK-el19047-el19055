@@ -27,7 +27,7 @@ ALTER PROCEDURAL LANGUAGE plpgsql OWNER TO postgres;
 SET search_path = public, pg_catalog;
 
 CREATE TABLE program (
-    title varchar(50) NOT NULL,
+    title varchar(50) NOT NULL PRIMARY KEY,
     department varchar(20) NOT NULL
 );
 
@@ -43,7 +43,7 @@ ALTER TABLE public.manager_id_seq OWNER TO postgres;
 
 
 CREATE TABLE manager (
-    manager_id integer DEFAULT nextval('manager_id_seq'::regclass) NOT NULL,
+    manager_id integer DEFAULT nextval('manager_id_seq'::regclass) NOT NULL PRIMARY KEY,
     manager_name varchar(20) NOT NULL,
     manager_surname varchar(20) NOT NULL
 );
@@ -51,7 +51,7 @@ CREATE TABLE manager (
 ALTER TABLE public.manager OWNER TO postgres;
 
 CREATE TABLE organisation (
-    org_name varchar(50) NOT NULL,
+    org_name varchar(50) NOT NULL PRIMARY KEY,
     abbreviation varchar(8) NOT NULL,
     street varchar(20) NOT NULL,
     street_number integer,
@@ -63,7 +63,7 @@ CREATE TABLE organisation (
 ALTER TABLE public.organisation OWNER TO postgres;
 
 CREATE TABLE scientific_field (
-    sf_subject varchar(20) NOT NULL
+    sf_subject varchar(20) NOT NULL PRIMARY KEY
 );
 
 ALTER TABLE public.scientific_field OWNER TO postgres;
@@ -71,29 +71,33 @@ ALTER TABLE public.scientific_field OWNER TO postgres;
 
 CREATE TABLE telephone_number (
     t_number char(10) NOT NULL,
-    org_name varchar(50) NOT NULL
+    org_name varchar(50) NOT NULL FOREIGN KEY REFERENCES organisation(org_name),
+    PRIMARY KEY (t_number)
 );
 
 ALTER TABLE public.telephone_number OWNER TO postgres;
 
 CREATE TABLE research_center (
-    org_name varchar(50) NOT NULL,
+    org_name varchar(50) NOT NULL FOREIGN KEY REFERENCES organisation(org_name),
+    private_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
     public_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
-    private_funds decimal(10,2) DEFAULT 0.00 NOT NULL
+    PRIMARY KEY (org_name)
 );
 
 ALTER TABLE public.research_center OWNER TO postgres;
 
 CREATE TABLE university (
-    org_name varchar(50) NOT NULL,
-    public_funds decimal(10,2) DEFAULT 0.00 NOT NULL
+    org_name varchar(50) NOT NULL FOREIGN KEY REFERENCES organisation(org_name),
+    public_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
+    PRIMARY KEY (org_name)
 );
 
 ALTER TABLE public.university OWNER TO postgres;
 
 CREATE TABLE corporation (
-    org_name varchar(50) NOT NULL,
-    private_funds decimal(10,2) DEFAULT 0.00 NOT NULL
+    org_name varchar(50) NOT NULL FOREIGN KEY REFERENCES organisation(org_name),
+    private_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
+    PRIMARY KEY (org_name)
 );
 
 ALTER TABLE public.corporation OWNER TO postgres;
@@ -115,12 +119,12 @@ CREATE SEQUENCE researcher_id_seq
 ALTER TABLE public.researcher_id_seq OWNER TO postgres;
 
 CREATE TABLE researcher (
-    researcher_id integer DEFAULT nextval('researcher_id_seq'::regclass)NOT NULL,
+    researcher_id integer DEFAULT nextval('researcher_id_seq'::regclass)NOT NULL PRIMARY KEY,
     researcher_name varchar(20) NOT NULL,
     researcher_surname varchar(20) NOT NULL,
-    gender gender_enum DEFAULT 'U'::gender_enum ,
+    gender gender_enum DEFAULT 'U'::gender_enum NOT NULL,
     date_of_birth date NOT NULL,
-    org_name varchar(50) NOT NULL,
+    org_name varchar(50) NOT NULL FOREIGN KEY REFERENCES organisation(org_name),
     contract_date date NOT NULL
 );
 
@@ -136,7 +140,7 @@ CREATE SEQUENCE project_id_seq
 ALTER TABLE public.project_id_seq OWNER TO postgres;
 
 CREATE TABLE project (
-    project_id integer DEFAULT nextval('project_id_seq'::regclass) NOT NULL,
+    project_id integer DEFAULT nextval('project_id_seq'::regclass) PRIMARY KEY,
     project_title varchar(50) NOT NULL,
     summary text NOT NULL,
     funding decimal(10,2) DEFAULT 0.00 NOT NULL,
@@ -144,10 +148,10 @@ CREATE TABLE project (
     final_date date NOT NULL,
     duration date,
     -- final-initial
-    program_title varchar(50) NOT NULL,
-    manager_id integer NOT NULL,
-    organisation_name varchar(50) NOT NULL,
-    assessor_id integer NOT NULL,
+    program_title varchar(50) NOT NULL FOREIGN KEY REFERENCES program(title),
+    manager_id integer NOT NULL FOREIGN KEY REFERENCES manager(manager_id),
+    org_name varchar(50) NOT NULL FOREIGN KEY REFERENCES organisation(org_name),
+    assessor_id integer NOT NULL FOREIGN KEY REFERENCES researcher(researcher_id),
     score integer NOT NULL,
     assessment_date date NOT NULL
 );
@@ -155,24 +159,27 @@ CREATE TABLE project (
 ALTER TABLE public.project OWNER TO postgres;
 
 CREATE TABLE scientific_field_of (
-    sf_subject varchar(20) NOT NULL,
-    project_id integer NOT NULL
+    sf_subject varchar(20) NOT NULL FOREIGN KEY REFERENCES scientific_field(sf_subject),
+    project_id integer NOT NULL FOREIGN KEY REFERENCES project(project_id),
+    PRIMARY KEY (sf_subject, project_id)
 );
 
 ALTER TABLE public.scientific_field_of OWNER TO postgres;
 
 CREATE TABLE researcher_on_project (
     researcher_id integer NOT NULL,
-    project_id integer NOT NULL
+    project_id integer NOT NULL,
+    PRIMARY KEY (researcher_id,project_id)
 );
 
 ALTER TABLE public.researcher_on_project OWNER TO postgres;
 
 CREATE TABLE report (
-    project_id integer NOT NULL,
+    project_id integer NOT NULL FOREIGN KEY REFERENCES project(project_id),
     report_title varchar(50) NOT NULL,
-    report_summary text NULL,
-    due_date date NOT NULL
+    report_summary text NOT NULL,
+    due_date date NOT NULL,
+    PRIMARY KEY (project_id,report_title)
 );
 
 ALTER TABLE public.report OWNER TO postgres;
