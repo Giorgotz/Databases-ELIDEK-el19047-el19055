@@ -44,7 +44,7 @@ ALTER TABLE public.manager_id_seq OWNER TO postgres;
 
 CREATE TABLE manager (
     manager_id integer DEFAULT nextval('manager_id_seq'::regclass) NOT NULL,
-    manager_name varchar(20) NOT NULL
+    manager_name varchar(20) NOT NULL,
     manager_surname varchar(20) NOT NULL
 );
 
@@ -121,7 +121,7 @@ CREATE TABLE researcher (
     gender gender_enum DEFAULT 'U'::gender_enum ,
     date_of_birth date NOT NULL,
     org_name varchar(50) NOT NULL,
-    contract_date date NOT NULL,
+    contract_date date NOT NULL
 );
 
 ALTER TABLE public.researcher OWNER TO postgres;
@@ -156,7 +156,7 @@ ALTER TABLE public.project OWNER TO postgres;
 
 CREATE TABLE scientific_field_of (
     sf_subject varchar(20) NOT NULL,
-    project_id integer NOT NULL,
+    project_id integer NOT NULL
 );
 
 ALTER TABLE public.scientific_field_of OWNER TO postgres;
@@ -170,7 +170,7 @@ ALTER TABLE public.researcher_on_project OWNER TO postgres;
 
 CREATE TABLE report (
     project_id integer NOT NULL,
-    report_title varchar(50)) NOT NULL,
+    report_title varchar(50) NOT NULL,
     report_summary text NULL,
     due_date date NOT NULL
 );
