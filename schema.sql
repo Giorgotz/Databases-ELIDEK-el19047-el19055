@@ -63,7 +63,7 @@ CREATE TABLE organisation (
 ALTER TABLE public.organisation OWNER TO postgres;
 
 CREATE TABLE scientific_field (
-    sf_subject varchar(20) NOT NULL PRIMARY KEY
+    sf_subject varchar(25) NOT NULL PRIMARY KEY
 );
 
 ALTER TABLE public.scientific_field OWNER TO postgres;
@@ -78,7 +78,7 @@ CREATE TABLE telephone_number (
 ALTER TABLE public.telephone_number OWNER TO postgres;
 
 CREATE TABLE research_center (
-    org_name varchar(50) NOT NULL REFERENCES organisation(org_name),
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
     private_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
     public_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
     PRIMARY KEY (org_name)
@@ -87,7 +87,7 @@ CREATE TABLE research_center (
 ALTER TABLE public.research_center OWNER TO postgres;
 
 CREATE TABLE university (
-    org_name varchar(50) NOT NULL REFERENCES organisation(org_name),
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
     public_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
     PRIMARY KEY (org_name)
 );
@@ -95,7 +95,7 @@ CREATE TABLE university (
 ALTER TABLE public.university OWNER TO postgres;
 
 CREATE TABLE corporation (
-    org_name varchar(50) NOT NULL REFERENCES organisation(org_name),
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
     private_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
     PRIMARY KEY (org_name)
 );
@@ -124,7 +124,7 @@ CREATE TABLE researcher (
     researcher_surname varchar(20) NOT NULL,
     gender gender_enum DEFAULT 'U'::gender_enum NOT NULL,
     date_of_birth date NOT NULL,
-    org_name varchar(50) NOT NULL REFERENCES organisation(org_name),
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
     contract_date date NOT NULL
 );
 
@@ -150,7 +150,7 @@ CREATE TABLE project (
     -- final-initial
     program_title varchar(50) NOT NULL,
     manager_id integer NOT NULL REFERENCES manager(manager_id),
-    org_name varchar(50) NOT NULL REFERENCES organisation(org_name),
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
     assessor_id integer NOT NULL REFERENCES researcher(researcher_id),
     score integer NOT NULL,
     assessment_date date NOT NULL
@@ -159,8 +159,8 @@ CREATE TABLE project (
 ALTER TABLE public.project OWNER TO postgres;
 
 CREATE TABLE scientific_field_of (
-    sf_subject varchar(20) NOT NULL,
-    project_id integer NOT NULL,
+    sf_subject varchar(25) NOT NULL REFERENCES scientific_field(sf_subject),
+    project_id integer NOT NULL REFERENCES project(project_id),
     PRIMARY KEY (sf_subject, project_id)
 );
 

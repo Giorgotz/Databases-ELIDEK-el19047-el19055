@@ -1,4 +1,4 @@
-sinsert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Οικονομικό Πανεπιστήμιο Αθηνών', 'ΟΠΑ', '28ης Οκτωβρίου', '76', '10434', 'Αθήνα', 'university');
+insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Οικονομικό Πανεπιστήμιο Αθηνών', 'ΟΠΑ', '28ης Οκτωβρίου', '76', '10434', 'Αθήνα', 'university');
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Ναυπηγεία Ελευσίνας', 'ΝΑΥΕΛ', 'ΠΕΟ Αθηνών-Κορίνθου', NULL, '19200', 'Ελευσίνα', 'corporation');
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Πανεπιστήμιο Δυτικής Μακεδονίας', 'ΠΔΜ', 'Κοίλα', NULL, '50100', 'Κοζάνη', 'university');
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Πανεπιστήμιο Πατρών', 'ΠΑΤΡ', 'Πανεπιστημιούπολη Πατρών', NULL, '26504','Ρίο', 'university');
@@ -28,6 +28,9 @@ insert into organisation (org_name, abbreviation, street, street_number, postal_
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Εθνικό Αστεροσκοπείο Αθηνών', 'ΕΑΕ', 'Λόφος Νυμφών', NULL, '11810', 'Αθήνα', 'research_center');
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Ανεξάρτητος Διαχειριστής Μεταφοράς Ηλεκτρικής Ενέργειας', 'ΑΔΜΗΕ', 'Δυρραχίου', '89', '10443', 'Αθήνα', 'corporation');
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('ΕΛΒΑΛΧΑΛΚΟΡ', 'ΕΛΧΑ', 'Μεσογείων', '2', '11527', 'Αθήνα', 'corporation');
+insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Ελληνικό Κέντρο Θαλασσίων Ερευνών', 'ΕΛΚΕΘΕ', 'Ακτή Μιαούλη', '13', '11227', 'Πειραιάς', 'research_center');
+insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Ίδρυμα Τεχνολογίας και Έρευνας', 'ΙΚΕ', 'Νικολάου Πλαστήρα',  '100', '70013', 'Ηράκλειο', 'research_center');
+
 insert into telephone_number (t_number, org_name) values ('2101021545', 'COSMOTE');
 insert into telephone_number (t_number, org_name) values ('2108432417', 'Εθνικό Αστεροσκοπείο Αθηνών');
 insert into telephone_number (t_number, org_name) values ('2353054028', 'Olympia Electronics');
@@ -50,7 +53,7 @@ insert into telephone_number (t_number, org_name) values ('2107328620', 'Δημ�
 insert into telephone_number (t_number, org_name) values ('2100577433', 'Πανεπιστήμιο Δυτικής Αττικής');
 insert into telephone_number (t_number, org_name) values ('2531076124', 'Δημοκρίτειο Πανεπιστήμιο Θράκης');
 insert into telephone_number (t_number, org_name) values ('2651023229', 'Πανεπιστήμιο Ιωαννίνων');
-insert into telephone_number (t_number, org_name) values ('2107215736', 'COSMOTE');
+insert into telephone_number (t_number, org_name) values ('2107215736', 'Ελληνικό Κέντρο Θαλασσίων Ερευνών');
 insert into telephone_number (t_number, org_name) values ('2106582378', 'COSMOTE');
 insert into telephone_number (t_number, org_name) values ('2103420985', 'Δημόκριτος');
 insert into telephone_number (t_number, org_name) values ('2108491092', 'COSMOTE');
@@ -78,21 +81,22 @@ insert into telephone_number (t_number, org_name) values ('2531058892', 'Δημ�
 insert into telephone_number (t_number, org_name) values ('2410431400', 'Πανεπιστήμιο Θεσσαλίας');
 insert into telephone_number (t_number, org_name) values ('2101170774', 'Εθνικό Δίκτυο Έρευνας και Τεχνολογίας');
 insert into telephone_number (t_number, org_name) values ('2109452451', 'Ανεξάρτητος Διαχειριστής Μεταφοράς Ηλεκτρικής Ενέργειας');
+
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Περικλής', 'Τάτσης', 'M', '1965-08-23 08:07:56', 'Εθνικό Αστεροσκοπείο Αθηνών', '2015-11-27 06:24:09');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Ηλίας', 'Γαϊτανίδης', 'M', '1995-11-29 03:02:28', 'Πανεπιστήμιο Δυτικής Αττικής', '2017-06-14 08:43:37');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Αναστάσιος', 'Πουλόπουλος', 'M', '1986-07-03 09:21:25', 'Πανεπιστήμιο Κρήτης', '2003-07-29 14:37:16');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Αθανάσιος', 'Ιωάννου', 'M', '1989-09-14 11:17:34', 'Εθνικό Αστεροσκοπείο Αθηνών', '2017-01-19 01:19:50');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Περικλής', 'Δασκαλάκης', 'M', '1985-08-16 00:02:21', 'Πανεπιστήμιο Δυτικής Αττικής', '2015-06-18 04:29:26');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Σωκράτης', 'Σαμαράκης', 'M', '1968-08-20 06:00:51', 'Πανεπιστήμιο Κρήτης', '1998-01-04 03:33:16');
-insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Συμεών', 'Δημητριάδης', 'M', '1966-10-27 12:40:14', 'Δημόκριτος', '2012-07-15 06:14:51');
+insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Συμεών', 'Δημητριάδης', 'M', '1966-10-27 12:40:14', 'Εθνικό Μετσόβιο Πολυτεχνείο', '2012-07-15 06:14:51');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Γιάνης', 'Δασκαλάκης', 'M', '1978-11-16 08:00:30', 'Εθνικό Αστεροσκοπείο Αθηνών', '2002-07-26 14:52:18');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Περικλής', 'Ξενίκας', 'M', '1962-02-11 15:05:46', 'Πανεπιστήμιο Δυτικής Αττικής', '2006-10-23 08:58:00');
-insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Κιαμάλ', 'Σιώντης', 'M', '1990-12-29 21:19:07', 'Πανεπιστήμιο Δυτικής Αττικής', '2003-10-03 20:44:45');
+insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Κιαμάλ', 'Σιώντης', 'M', '1990-12-29 21:19:07', 'Εθνικό Μετσόβιο Πολυτεχνείο', '2003-10-03 20:44:45');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Αναστάσιος', 'Ψάλτης', 'M', '1968-07-03 19:01:58', 'Δημόκριτος', '1999-08-11 03:28:40');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Γεώργιος', 'Δημητριάδης', 'M', '1997-01-19 12:12:21', 'Ιόνιο Πανεπιστήμιο', '2008-02-13 03:50:17');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Κιαμάλ', 'Παπαπάσχου', 'M', '1993-01-10 07:29:24', 'Εθνικό Αστεροσκοπείο Αθηνών', '2003-08-15 10:35:32');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Αναστάσιος', 'Δασκαλάκης', 'M', '1956-11-11 21:27:52', 'Διεθνές Πανεπιστήμιο Ελλάδος', '2002-12-30 18:36:02');
-insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Νέστωρ', 'Ζαχαριάς', 'M', '1975-08-19 01:57:37', 'Δημοκρίτειο Πανεπιστήμιο Θράκης', '1996-04-10 13:16:10');
+insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Νέστωρ', 'Ζαχαριάς', 'M', '1975-08-19 01:57:37', 'Αριστοτέλειο Πανεπιστήμιο Θράκης', '1996-04-10 13:16:10');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Παντελεήμων', 'Παπαδόπουλος', 'M', '1985-03-11 02:12:25', 'Πανεπιστήμιο Κρήτης', '2009-01-27 03:54:42');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Μιχαήλ', 'Κοτζιάς', 'M', '1970-12-18 07:14:54', 'Δημοκρίτειο Πανεπιστήμιο Θράκης', '2008-09-07 08:12:46');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Συμεών', 'Δασκαλάκης', 'M', '1977-01-02 07:09:09', 'Πανεπιστήμιο Κρήτης', '1997-08-27 18:18:51');
@@ -188,3 +192,63 @@ insert into researcher (researcher_name, researcher_surname, gender, date_of_bir
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Αλεξάνδρα', 'Παπακώστα', 'F', '1988-02-17 04:18:06', 'Πανεπιστήμιο Κρήτης', '2006-06-02 15:09:05');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Λαμπρινή', 'Χαριστέα', 'F', '1992-08-18 03:29:10', 'Διεθνές Πανεπιστήμιο Ελλάδος', '2004-06-24 14:45:09');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Μαρία', 'Γαϊτανίδη', 'F', '1962-06-26 06:33:14', 'Ιόνιο Πανεπιστήμιο', '1995-05-11 08:37:36');
+
+insert into corporation (org_name, private_funds) values ('COSMOTE', 21992038.71);
+insert into corporation (org_name, private_funds) values ('Motor Oil', 99344738.26);
+insert into corporation (org_name, private_funds) values ('Ελληνικά Πετρέλαια', 90215124.24);
+insert into corporation (org_name, private_funds) values ('Vodafone', 10146721.13);
+insert into corporation (org_name, private_funds) values ('Δωδώνη', 8184636.89);
+insert into corporation (org_name, private_funds) values ('Olympia Electronics', 5231309.52);
+insert into corporation (org_name, private_funds) values ('ΕΛΒΑΛΧΑΛΚΟΡ', 12124524.4);
+insert into corporation (org_name, private_funds) values ('PFIZER Ελλάδος', 20256633.55);
+insert into corporation (org_name, private_funds) values ('Ανεξάρτητος Διαχειριστής Μεταφοράς Ηλεκτρικής Ενέργειας', 50313506.18);
+insert into corporation (org_name, private_funds) values ('ΤΙΤΑΝ', 50219381.93);
+insert into corporation (org_name, private_funds) values ('Ναυπηγεία Ελευσίνας', 12144769.74);
+insert into corporation (org_name, private_funds) values ('Ελληνική Βιομηχανία Οχημάτων', 15332310.0);
+
+insert into university (org_name, public_funds) values ('Εθνικό Μετσόβιο Πολυτεχνείο', 21282247.5);
+insert into university (org_name, public_funds) values ('Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης', 2070072.14);
+insert into university (org_name, public_funds) values ('Πανεπιστήμιο Ιωαννίνων', 9131104.79);
+insert into university (org_name, public_funds) values ('Πολυτεχνείο Κρήτης', 5342033.99);
+insert into university (org_name, public_funds) values ('Δημοκρίτειο Πανεπιστήμιο Θράκης', 6304412.08);
+insert into university (org_name, public_funds) values ('Πανεπιστήμιο Πατρών', 9140924.23);
+insert into university (org_name, public_funds) values ('Πανεπιστήμιο Δυτικής Αττικής', 10321381.29);
+insert into university (org_name, public_funds) values ('Πανεπιστήμιο Θεσσαλίας', 8565018.15);
+insert into university (org_name, public_funds) values ('Ιόνιο Πανεπιστήμιο', 1708561.24);
+insert into university (org_name, public_funds) values ('Πανεπιστήμιο Κρήτης', 17181502.3);
+insert into university (org_name, public_funds) values ('Διεθνές Πανεπιστήμιο Ελλάδος', 9086406.01);
+insert into university (org_name, public_funds) values ('Πανεπιστήμιο Δυτικής Μακεδονίας', 8062369.68);
+insert into university (org_name, public_funds) values ('Πανεπιστήμιο Αιγαίου', 6708908.55);
+insert into university (org_name, public_funds) values ('Οικονομικό Πανεπιστήμιο Αθηνών', 10830896.34);
+
+insert into research_center (org_name, private_funds, public_funds) values ('Δημόκριτος', 5143383.93, 5298437.0);
+insert into research_center (org_name, private_funds, public_funds) values ('Εθνικό Αστεροσκοπείο Αθηνών', 386079.59, 590027.33);
+insert into research_center (org_name, private_funds, public_funds) values ('Εθνικό Δίκτυο Έρευνας και Τεχνολογίας', 4268032.24, 2151892.0);
+insert into research_center (org_name, private_funds, public_funds) values ('Ίδρυμα Τεχνολογίας και Έρευνας', 6127069.42, 1187291.57);
+insert into research_center (org_name, private_funds, public_funds) values ('Ινστιτούτο Παστέρ', 12317078.13, 1333078.34);
+insert into research_center (org_name, private_funds, public_funds) values ('Ελληνικό Κέντρο Θαλασσίων Ερευνών', 1253078.13, 13345678.34);
+
+insert into scientific_field (sf_subject) values ('Φυσική');
+insert into scientific_field (sf_subject) values ('Εφαρμοσμένα Μαθηματικά');
+insert into scientific_field (sf_subject) values ('Βιολογία');
+insert into scientific_field (sf_subject) values ('Φαρμακευτική');
+insert into scientific_field (sf_subject) values ('Υλικά');
+insert into scientific_field (sf_subject) values ('Ενέργεια');
+insert into scientific_field (sf_subject) values ('Μετεωρολογία');
+insert into scientific_field (sf_subject) values ('Γεωλογία');
+insert into scientific_field (sf_subject) values ('Τηλεπικοινωνίες');
+insert into scientific_field (sf_subject) values ('Τεχνητή Νοημοσύνη');
+insert into scientific_field (sf_subject) values ('Επιστήμη Δεδομένων');
+insert into scientific_field (sf_subject) values ('Χρηματοοικονομικά');
+insert into scientific_field (sf_subject) values ('Διοίκηση Επιχειρήσεων');
+insert into scientific_field (sf_subject) values ('Μάρκετινγκ');
+insert into scientific_field (sf_subject) values ('Γεωπονία');
+insert into scientific_field (sf_subject) values ('Γεωπληροφορική');
+insert into scientific_field (sf_subject) values ('Αεροναυπηγική');
+insert into scientific_field (sf_subject) values ('Αστρονομία');
+insert into scientific_field (sf_subject) values ('Βιοπληροφορική');
+insert into scientific_field (sf_subject) values ('Ρευστομηχανική');
+insert into scientific_field (sf_subject) values ('Ωκεανογραφία');
+insert into scientific_field (sf_subject) values ('Γενετική');
+insert into scientific_field (sf_subject) values ('Τεχνολογία Τροφίφων');
+insert into scientific_field (sf_subject) values ('Logistics');
