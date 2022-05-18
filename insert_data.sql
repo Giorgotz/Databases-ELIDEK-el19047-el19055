@@ -28,6 +28,7 @@ insert into organisation (org_name, abbreviation, street, street_number, postal_
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Εθνικό Αστεροσκοπείο Αθηνών', 'ΕΑΕ', 'Λόφος Νυμφών', NULL, '11810', 'Αθήνα', 'research_center');
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Ανεξάρτητος Διαχειριστής Μεταφοράς Ηλεκτρικής Ενέργειας', 'ΑΔΜΗΕ', 'Δυρραχίου', '89', '10443', 'Αθήνα', 'corporation');
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('ΕΛΒΑΛΧΑΛΚΟΡ', 'ΕΛΧΑ', 'Μεσογείων', '2', '11527', 'Αθήνα', 'corporation');
+insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Ελληνικό Κέντρο Θαλασσίων Ερευνών', 'ΕΛΚΕΘΕ', 'Ακτή Μιαούλη', '13', '11227', 'Πειραιάς', 'research_center');
 
 insert into telephone_number (t_number, org_name) values ('2101021545', 'COSMOTE');
 insert into telephone_number (t_number, org_name) values ('2108432417', 'Εθνικό Αστεροσκοπείο Αθηνών');
@@ -51,7 +52,7 @@ insert into telephone_number (t_number, org_name) values ('2107328620', 'Δημ�
 insert into telephone_number (t_number, org_name) values ('2100577433', 'Πανεπιστήμιο Δυτικής Αττικής');
 insert into telephone_number (t_number, org_name) values ('2531076124', 'Δημοκρίτειο Πανεπιστήμιο Θράκης');
 insert into telephone_number (t_number, org_name) values ('2651023229', 'Πανεπιστήμιο Ιωαννίνων');
-insert into telephone_number (t_number, org_name) values ('2107215736', 'COSMOTE');
+insert into telephone_number (t_number, org_name) values ('2107215736', 'Ελληνικό Κέντρο Θαλασσίων Ερευνών');
 insert into telephone_number (t_number, org_name) values ('2106582378', 'COSMOTE');
 insert into telephone_number (t_number, org_name) values ('2103420985', 'Δημόκριτος');
 insert into telephone_number (t_number, org_name) values ('2108491092', 'COSMOTE');
@@ -190,6 +191,7 @@ insert into researcher (researcher_name, researcher_surname, gender, date_of_bir
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Αλεξάνδρα', 'Παπακώστα', 'F', '1988-02-17 04:18:06', 'Πανεπιστήμιο Κρήτης', '2006-06-02 15:09:05');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Λαμπρινή', 'Χαριστέα', 'F', '1992-08-18 03:29:10', 'Διεθνές Πανεπιστήμιο Ελλάδος', '2004-06-24 14:45:09');
 insert into researcher (researcher_name, researcher_surname, gender, date_of_birth, org_name, contract_date) values ('Μαρία', 'Γαϊτανίδη', 'F', '1962-06-26 06:33:14', 'Ιόνιο Πανεπιστήμιο', '1995-05-11 08:37:36');
+
 insert into corporation (org_name, private_funds) values ('COSMOTE', 210992038.71);
 insert into corporation (org_name, private_funds) values ('Motor Oil', 300344738.26);
 insert into corporation (org_name, private_funds) values ('Ελληνικά Πετρέλαια', 290215124.24);
