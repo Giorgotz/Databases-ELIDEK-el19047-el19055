@@ -51,9 +51,9 @@ CREATE TABLE manager (
 ALTER TABLE public.manager OWNER TO postgres;
 
 CREATE TABLE organisation (
-    org_name varchar(50) NOT NULL PRIMARY KEY,
+    org_name varchar(55) NOT NULL PRIMARY KEY,
     abbreviation varchar(8) NOT NULL,
-    street varchar(20) NOT NULL,
+    street varchar(35) NOT NULL,
     street_number integer,
     postal_code varchar(5) NOT NULL,
     city varchar(20) NOT NULL,
@@ -71,7 +71,7 @@ ALTER TABLE public.scientific_field OWNER TO postgres;
 
 CREATE TABLE telephone_number (
     t_number char(10) NOT NULL,
-    org_name varchar(50) NOT NULL,
+    org_name varchar(55) NOT NULL,
     PRIMARY KEY (t_number)
 );
 
@@ -186,4 +186,3 @@ ALTER TABLE public.report OWNER TO postgres;
 
 ALTER TABLE public.telephone_number ADD
     CONSTRAINT fk_tel FOREIGN KEY (org_name) REFERENCES organisation(org_name);
- 
