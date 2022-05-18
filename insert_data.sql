@@ -29,6 +29,7 @@ insert into organisation (org_name, abbreviation, street, street_number, postal_
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Ανεξάρτητος Διαχειριστής Μεταφοράς Ηλεκτρικής Ενέργειας', 'ΑΔΜΗΕ', 'Δυρραχίου', '89', '10443', 'Αθήνα', 'corporation');
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('ΕΛΒΑΛΧΑΛΚΟΡ', 'ΕΛΧΑ', 'Μεσογείων', '2', '11527', 'Αθήνα', 'corporation');
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Ελληνικό Κέντρο Θαλασσίων Ερευνών', 'ΕΛΚΕΘΕ', 'Ακτή Μιαούλη', '13', '11227', 'Πειραιάς', 'research_center');
+insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Ίδρυμα Τεχνολογίας και Έρευνας', 'ΙΚΕ', 'Νικολάου Πλαστήρα',  '100', '70013', 'Ηράκλειο', 'research_center');
 
 insert into telephone_number (t_number, org_name) values ('2101021545', 'COSMOTE');
 insert into telephone_number (t_number, org_name) values ('2108432417', 'Εθνικό Αστεροσκοπείο Αθηνών');
