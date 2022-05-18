@@ -1,4 +1,4 @@
-sinsert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Οικονομικό Πανεπιστήμιο Αθηνών', 'ΟΠΑ', '28ης Οκτωβρίου', '76', '10434', 'Αθήνα', 'university');
+insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Οικονομικό Πανεπιστήμιο Αθηνών', 'ΟΠΑ', '28ης Οκτωβρίου', '76', '10434', 'Αθήνα', 'university');
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Ναυπηγεία Ελευσίνας', 'ΝΑΥΕΛ', 'ΠΕΟ Αθηνών-Κορίνθου', NULL, '19200', 'Ελευσίνα', 'corporation');
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Πανεπιστήμιο Δυτικής Μακεδονίας', 'ΠΔΜ', 'Κοίλα', NULL, '50100', 'Κοζάνη', 'university');
 insert into organisation (org_name, abbreviation, street, street_number, postal_code, city, category) values ('Πανεπιστήμιο Πατρών', 'ΠΑΤΡ', 'Πανεπιστημιούπολη Πατρών', NULL, '26504','Ρίο', 'university');
