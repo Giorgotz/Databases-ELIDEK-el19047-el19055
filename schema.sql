@@ -28,7 +28,7 @@ SET search_path = public, pg_catalog;
 
 CREATE TABLE program (
     title varchar(50) NOT NULL PRIMARY KEY,
-    department varchar(20) NOT NULL
+    department varchar(70) NOT NULL
 );
 
 ALTER TABLE public.program OWNER TO postgres;
@@ -146,7 +146,7 @@ CREATE TABLE project (
     funding decimal(10,2) DEFAULT 0.00 NOT NULL,
     starting_date date NOT NULL,
     final_date date NOT NULL,
-    duration date,
+    duration integer,
     -- final-initial
     program_title varchar(50) NOT NULL,
     manager_id integer NOT NULL REFERENCES manager(manager_id),
