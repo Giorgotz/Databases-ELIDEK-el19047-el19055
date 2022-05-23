@@ -28,7 +28,7 @@ SET search_path = public, pg_catalog;
 
 CREATE TABLE program (
     title varchar(50) NOT NULL PRIMARY KEY,
-    department varchar(20) NOT NULL
+    department varchar(70) NOT NULL
 );
 
 ALTER TABLE public.program OWNER TO postgres;
@@ -51,9 +51,9 @@ CREATE TABLE manager (
 ALTER TABLE public.manager OWNER TO postgres;
 
 CREATE TABLE organisation (
-    org_name varchar(50) NOT NULL PRIMARY KEY,
+    org_name varchar(55) NOT NULL PRIMARY KEY,
     abbreviation varchar(8) NOT NULL,
-    street varchar(20) NOT NULL,
+    street varchar(35) NOT NULL,
     street_number integer,
     postal_code varchar(5) NOT NULL,
     city varchar(20) NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE organisation (
 ALTER TABLE public.organisation OWNER TO postgres;
 
 CREATE TABLE scientific_field (
-    sf_subject varchar(20) NOT NULL PRIMARY KEY
+    sf_subject varchar(25) NOT NULL PRIMARY KEY
 );
 
 ALTER TABLE public.scientific_field OWNER TO postgres;
@@ -71,14 +71,14 @@ ALTER TABLE public.scientific_field OWNER TO postgres;
 
 CREATE TABLE telephone_number (
     t_number char(10) NOT NULL,
-    org_name varchar(50) NOT NULL FOREIGN KEY REFERENCES organisation(org_name),
+    org_name varchar(55) NOT NULL,
     PRIMARY KEY (t_number)
 );
 
 ALTER TABLE public.telephone_number OWNER TO postgres;
 
 CREATE TABLE research_center (
-    org_name varchar(50) NOT NULL FOREIGN KEY REFERENCES organisation(org_name),
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
     private_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
     public_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
     PRIMARY KEY (org_name)
@@ -87,7 +87,7 @@ CREATE TABLE research_center (
 ALTER TABLE public.research_center OWNER TO postgres;
 
 CREATE TABLE university (
-    org_name varchar(50) NOT NULL FOREIGN KEY REFERENCES organisation(org_name),
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
     public_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
     PRIMARY KEY (org_name)
 );
@@ -95,7 +95,7 @@ CREATE TABLE university (
 ALTER TABLE public.university OWNER TO postgres;
 
 CREATE TABLE corporation (
-    org_name varchar(50) NOT NULL FOREIGN KEY REFERENCES organisation(org_name),
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
     private_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
     PRIMARY KEY (org_name)
 );
@@ -124,7 +124,7 @@ CREATE TABLE researcher (
     researcher_surname varchar(20) NOT NULL,
     gender gender_enum DEFAULT 'U'::gender_enum NOT NULL,
     date_of_birth date NOT NULL,
-    org_name varchar(50) NOT NULL FOREIGN KEY REFERENCES organisation(org_name),
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
     contract_date date NOT NULL
 );
 
@@ -146,12 +146,12 @@ CREATE TABLE project (
     funding decimal(10,2) DEFAULT 0.00 NOT NULL,
     starting_date date NOT NULL,
     final_date date NOT NULL,
-    duration date,
+    duration integer,
     -- final-initial
-    program_title varchar(50) NOT NULL FOREIGN KEY REFERENCES program(title),
-    manager_id integer NOT NULL FOREIGN KEY REFERENCES manager(manager_id),
-    org_name varchar(50) NOT NULL FOREIGN KEY REFERENCES organisation(org_name),
-    assessor_id integer NOT NULL FOREIGN KEY REFERENCES researcher(researcher_id),
+    program_title varchar(50) NOT NULL,
+    manager_id integer NOT NULL REFERENCES manager(manager_id),
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
+    assessor_id integer NOT NULL REFERENCES researcher(researcher_id),
     score integer NOT NULL,
     assessment_date date NOT NULL
 );
@@ -159,23 +159,23 @@ CREATE TABLE project (
 ALTER TABLE public.project OWNER TO postgres;
 
 CREATE TABLE scientific_field_of (
-    sf_subject varchar(20) NOT NULL FOREIGN KEY REFERENCES scientific_field(sf_subject),
-    project_id integer NOT NULL FOREIGN KEY REFERENCES project(project_id),
+    sf_subject varchar(25) NOT NULL REFERENCES scientific_field(sf_subject),
+    project_id integer NOT NULL REFERENCES project(project_id),
     PRIMARY KEY (sf_subject, project_id)
 );
 
 ALTER TABLE public.scientific_field_of OWNER TO postgres;
 
 CREATE TABLE researcher_on_project (
-    researcher_id integer NOT NULL,
-    project_id integer NOT NULL,
+    researcher_id integer NOT NULL REFERENCES researcher(researcher_id),
+    project_id integer NOT NULL REFERENCES project(project_id),
     PRIMARY KEY (researcher_id,project_id)
 );
 
 ALTER TABLE public.researcher_on_project OWNER TO postgres;
 
 CREATE TABLE report (
-    project_id integer NOT NULL FOREIGN KEY REFERENCES project(project_id),
+    project_id integer NOT NULL,
     report_title varchar(50) NOT NULL,
     report_summary text NOT NULL,
     due_date date NOT NULL,
@@ -183,3 +183,6 @@ CREATE TABLE report (
 );
 
 ALTER TABLE public.report OWNER TO postgres;
+
+ALTER TABLE public.telephone_number ADD
+    CONSTRAINT fk_tel FOREIGN KEY (org_name) REFERENCES organisation(org_name);
