@@ -19,43 +19,33 @@
             <div class="col-md-12">
                 <div class="card" id="card-container">
                     <div class="card-body" id="card">
-                    <% if (project.length == 0) { %> 
-                        <h1 style="margin-top: 5rem;">No projects found!</h1>
+                    <% if (researcher.length == 0) { %> 
+                        <h1 style="margin-top: 5rem;">No researchers found!</h1>
                     <% } else { %>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Project title</th>
-                                        <th>summary</th>
-                                        <th>Funds</th>
-                                        <th>Begins on</th>
-                                        <th>Finished on</th>
-                                        <th>Related program</th>
-                                        <th>Manager ID</th>
-                                        <th>Organisation</th>
-                                        <th>Assessor ID</th>
-                                        <th>Assessment Score</th>
-                                        <th>Date of assessment</th>
+                                        <th>Name</th>
+                                        <th>Surname</th>
+                                        <th>Gender</th>
+                                        <th>Date of Birth</th>
+                                        <th>Contract Date</th>
+                                        <th>Works for</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% project.forEach((pro, _) => { %>
+                                    <% researcher.forEach((pro, _) => { %>
                                         <tr>
-                                            <td><%= pro.project_id %></td>
-                                            <td><%= pro.project_title %></td>
-                                            <td><%= pro.summary %></td>
-                                            <td><%= pro.funding %></td>
-                                            <td><%= pro.starting_date %></td>
-                                            <td><%= pro.final_date %></td>
-                                            <td><%= pro.program_title %></td>
-                                            <td><%= pro.manager_id %></td>
+                                            <td><%= pro.researcher_id %></td>
+                                            <td><%= pro.researcher_name %></td>
+                                            <td><%= pro.researcher_surname%></td>
+                                            <td><%= pro.gender%></td>
+                                            <td><%= pro.date_of_birth %></td>
+                                            <td><%= pro.contract_date %></td>
                                             <td><%= pro.org_name %></td>
-                                            <td><%= pro.assessor_id %></td>
-                                            <td><%= pro.score %></td>
-                                            <td><%= pro.assessment_date %></td>
-                                        </tr>
+
                                     <% }) %>
                                 </tbody>
                             </table>

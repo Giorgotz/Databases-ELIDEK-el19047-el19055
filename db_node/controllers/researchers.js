@@ -1,7 +1,7 @@
 const { client } = require('../utils/database')
 
 /* Controller to retrieve grades from database */
-exports.getProjects = (req, res, next) => {
+exports.getResearchers = (req, res, next) => {
 
     /* check for messages in order to show them when rendering the page */
     let messages = req.flash("messages");
@@ -9,11 +9,11 @@ exports.getProjects = (req, res, next) => {
 
     client.connect();
 
-    client.query("SELECT * FROM project",(err,conn) => {
+    client.query("SELECT * FROM researcher",(err,conn) => {
         if(!err) {
-            res.render('projects.ejs',{
-                pageTitle: "Project page",
-                project: conn.rows,
+            res.render('researchers.ejs',{
+                pageTitle: "Researchers",
+                researcher: conn.rows,
                 messages: messages
             })
         }

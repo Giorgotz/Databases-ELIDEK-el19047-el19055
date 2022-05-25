@@ -19,42 +19,29 @@
             <div class="col-md-12">
                 <div class="card" id="card-container">
                     <div class="card-body" id="card">
-                    <% if (project.length == 0) { %> 
-                        <h1 style="margin-top: 5rem;">No projects found!</h1>
+                    <% if (program.length == 0) { %> 
+                        <h1 style="margin-top: 5rem;">No programs found!</h1>
                     <% } else { %>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Project title</th>
-                                        <th>summary</th>
-                                        <th>Funds</th>
-                                        <th>Begins on</th>
-                                        <th>Finished on</th>
-                                        <th>Related program</th>
-                                        <th>Manager ID</th>
-                                        <th>Organisation</th>
-                                        <th>Assessor ID</th>
-                                        <th>Assessment Score</th>
-                                        <th>Date of assessment</th>
+                                        <th>Title
+                                            <select class="filter">
+                                                <option value="all">All
+                                                    
+                                                </option>
+                                            </select>
+                                        </th>
+                                        <th>Department</th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% project.forEach((pro, _) => { %>
+                                    <% program.forEach((pro, _) => { %>
                                         <tr>
-                                            <td><%= pro.project_id %></td>
-                                            <td><%= pro.project_title %></td>
-                                            <td><%= pro.summary %></td>
-                                            <td><%= pro.funding %></td>
-                                            <td><%= pro.starting_date %></td>
-                                            <td><%= pro.final_date %></td>
-                                            <td><%= pro.program_title %></td>
-                                            <td><%= pro.manager_id %></td>
-                                            <td><%= pro.org_name %></td>
-                                            <td><%= pro.assessor_id %></td>
-                                            <td><%= pro.score %></td>
-                                            <td><%= pro.assessment_date %></td>
+                                            <td><%= pro.title %></td>
+                                            <td><%= pro.department %></td>
                                         </tr>
                                     <% }) %>
                                 </tbody>

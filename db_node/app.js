@@ -9,17 +9,19 @@ const flash = require('connect-flash');
 /*
 const home = require('./routes/home');
 const login = require('./routes/login');
-const organisations = require('./routes/organisations');
+
 const most_active_orgs = require('./routes/most_active_orgs')
-const researchers = require('./routes/researchers');
+
 const researchers_on = require('./routes/researchers_on');
 const researchers_stats = require('./routes/researchers_stats');
-const elidek_programs = require('./routes/elidek_programs');
-const elidek_managers = require('./routes/elidek_managers');
+
+
 const corrupted_managers = require('./routes/corrupted_managers');*/
 const projects = require('./routes/projects');
-
-
+const researchers = require('./routes/researchers');
+const organisations = require('./routes/organisations');
+const elidek_managers = require('./routes/elidek_managers');
+const elidek_programs = require('./routes/elidek_programs');
 /* end of ROUTES and how to import routes */
 
 const app = express();
@@ -42,16 +44,20 @@ app.use(session({
 /*Routes used by the project */
 /*app.use('/',home);
 app.use('/login', login);
-app.use('/organisations', organisations);
-app.use('/organisations/most_active', most_active_orgs);
-app.use('/managers', elidek_managers);
-app.use('/managers/suspicious',corrupted_managers);
-app.use('/programs',elidek_programs);
 
-app.use('/researchers', researchers)
+app.use('/organisations/most_active', most_active_orgs);
+
+app.use('/managers/suspicious',corrupted_managers);
+
+
+
 app.use('/researchers/project_list',researchers_on);
 app.use('/researchers/project_list/statistics',researchers_stats);*/
 app.use('/projects',projects);
+app.use('/researchers', researchers);
+app.use('/managers', elidek_managers);
+app.use('/organisations', organisations);
+app.use('/programs',elidek_programs);
 /* End of routes used by the project*/
 
 // In case of an endpoint does not exist must return 404.html
