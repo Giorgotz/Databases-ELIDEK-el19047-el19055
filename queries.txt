@@ -1,0 +1,1 @@
+CREATE VIEW projects_and_funding_per_researcher AS SELECT p.project_id, funding, researcher_name, researcher_surname FROM project p, researcher_on_project rp, researcher r WHERE p.project_id = rp.project_id AND rp.researcher_id = r.researcher_id;

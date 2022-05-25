@@ -131,7 +131,16 @@ CREATE TABLE researcher (
 ALTER TABLE public.researcher OWNER TO postgres;
 
 
+CREATE
+
 CREATE SEQUENCE project_id_seq
+  
+
+CREATE SEQUENCE project_id_seq
+   SEQUENCE project_id_seq
+
+CREATE SEQUENCE project_id_seq
+
     INCREMENT BY 1
     NO MAXVALUE
     NO MINVALUE
@@ -145,8 +154,8 @@ CREATE TABLE project (
     summary text NOT NULL,
     funding decimal(10,2) DEFAULT 0.00 NOT NULL,
     starting_date date NOT NULL,
-    final_date date NOT NULL,
-    duration integer,
+    final_date date NOT NULL check (final_date - starting_date> 0),
+    duration integer check (final_date - starting_date = 365 * duration or final_date - starting_date = 365 * duration + 1),
     -- final-initial
     program_title varchar(50) NOT NULL,
     manager_id integer NOT NULL REFERENCES manager(manager_id),
