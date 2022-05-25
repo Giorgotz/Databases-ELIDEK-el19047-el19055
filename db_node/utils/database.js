@@ -1,7 +1,7 @@
-const { Client }= require('pg');
+const { Pool }= require('pg');
 
 /* create connection and export it */
-const client = new Client({
+const pool = new Pool({
     host: "localhost",
     port: 5432,
     user: "panagiotis",
@@ -9,4 +9,9 @@ const client = new Client({
     database: "panagiorgis",
 });
 
-module.exports = { client };
+pool.on('connect', () => {
+    console.log('pool connected');
+})
+module.exports = {
+    query: (text, params) => pool.query(text, params)
+}

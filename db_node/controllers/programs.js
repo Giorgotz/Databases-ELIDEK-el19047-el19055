@@ -1,25 +1,10 @@
-const { client } = require('../utils/database')
+const db = require('../utils/database')
 
 /* Controller to retrieve grades from database */
-exports.getPrograms = (req, res, next) => {
-
-    /* check for messages in order to show them when rendering the page */
-    let messages = req.flash("messages");
-    if (messages.length == 0) messages = [];
-
-    client.connect();
-
-    client.query("SELECT * FROM program",(err,conn) => {
-        if(!err) {
-            res.render('programs.ejs',{
-                pageTitle: "Programs page",
-                program: conn.rows,
-                messages: messages
-            })
-        }
-        else{
-            console.log(err,messages)
-        }
-        client.end;
+exports.getPrograms = async (req, res) => {
+    const response = await db.query("SELECT * FROM program");
+    res.render('programs.ejs',{
+        pageTitle: "programs page",
+        programs: response.rows,
     })
 }

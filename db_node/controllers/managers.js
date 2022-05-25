@@ -1,9 +1,19 @@
-const { client } = require('../utils/database')
+const db = require('../utils/database')
 
-/* Controller to retrieve grades from database */
+
+
+exports.getManagers = async (req, res) => {
+    const response = await db.query("SELECT * FROM manager");
+    res.render('managers.ejs',{
+        pageTitle: "managers page",
+        manager: response.rows,
+    })
+}
+
+/* Controller to retrieve grades from database 
 exports.getManagers = (req, res, next) => {
 
-    /* check for messages in order to show them when rendering the page */
+    check for messages in order to show them when rendering the page 
     let messages = req.flash("messages");
     if (messages.length == 0) messages = [];
 
@@ -21,55 +31,22 @@ exports.getManagers = (req, res, next) => {
             console.log(err,messages)
         }
     })
-}
-exports.postStudent = (req, res, next) => {
+} */
+exports.postManager = async (req, res, next) => {
 
     /* get necessary data sent */
     const name = req.body.name;
     const surname = req.body.surname;
-    const email = req.body.email;
+    await db.query("INSERT INTO (manager_name , manager_surname) VALUES ($1, $2)",[name, surname]);
+    res.redirect('/managers');
 
-    /* create the connection, execute query, flash respective message and redirect to grades route */
-    pool.getConnection((err, conn) => {
-        var sqlQuery = `INSERT INTO students(name, surname, email) VALUES(?, ?, ?)`;
-
-        conn.promise().query(sqlQuery, [name, surname, email])
-        .then(() => {
-            pool.releaseConnection(conn);
-            req.flash('messages', { type: 'success', value: "Successfully added a new Student!" })
-            res.redirect('/');
-        })
-        .catch(err => {
-            req.flash('messages', { type: 'error', value: "Something went wrong, Student could not be added." })
-            res.redirect('/');
-        })
-    })
 }
-
 /* Controller to update a student in the database */
-exports.postUpdateManager = (req, res, next) => {
-
+exports.postUpdateManager = async (req, res, next) => {
     /* get necessary data sent */
-    const id = req.body.id;
+    const id = parseInt(req.body.id);
     const name = req.body.name;
     const surname = req.body.surname;
-
-   
-
-    var sqlQuery = `UPDATE manager SET manager_name = ${name} , manager_surname = ${surname} WHERE manager_id = ${id} `
-    
-    client.query(sqlQuery)
-    .catch(e => console.log(e))
-
-    /*client.query(sqlQuery,(err,conn) => {
-        if(!err) {
-            req.flash('messages', { type: 'success', value: "Successfully updated student!" })
-            res.redirect('/managers');
-        }
-        else{
-            req.flash('messages', { type: 'error', value: "Something went wrong, Student could not be updated." })
-            res.redirect('/managers');
-        }
-        client.end;
-    })*/
-}
+    await db.query("UPDATE manager SET manager_name = $1 , manager_surname = $2 WHERE manager_id = $3",[name, surname, id]);
+    res.redirect('/managers');
+};
