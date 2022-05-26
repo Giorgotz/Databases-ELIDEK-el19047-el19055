@@ -5,6 +5,6 @@ exports.getProjects = async (req, res) => {
     const response = await db.query("SELECT * FROM project");
     res.render('projects.ejs',{
         pageTitle: "projects page",
-        projects: response.rows,
+        project: response.rows,
     })
 }

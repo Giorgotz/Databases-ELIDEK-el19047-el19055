@@ -5,6 +5,6 @@ exports.getResearchers = async (req, res) => {
     const response = await db.query("SELECT * FROM researcher");
     res.render('researchers.ejs',{
         pageTitle: "researchers page",
-        researchers: response.rows,
+        researcher: response.rows,
     })
 }

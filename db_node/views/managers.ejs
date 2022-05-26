@@ -10,10 +10,10 @@
 </head>
 
 <body>
-    <div id="editModal" class="modal fade" role="dialog">
+    <!--<div id="editModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
-            <!-- Modal content-->
+            
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Edit</h4>
@@ -34,8 +34,23 @@
             </div>
 
         </div>
-    </div>
+    </div>-->
     <%- include("includes/navigate.ejs") %>
+    <form id="upd_form" action = "/managers/update" method="POST">
+        <label>update</label></br>
+        <input type="text" name="id" id="manager_id" readonly>
+        <input type="text" name="name" id="manager_name" required>
+        <input type="text" name="surname" id="manager_surname" required>
+        <input type="submit" value="UPDATE">
+        <!--<input id="sub" type="submit" value="DELETE" onclick= "del()">-->
+    </form>
+    
+    <form id="add_form" action = "/managers/add" method="POST">
+        <label for="add">add</label></br>
+        <input type="text" name="name" required>
+        <input type="text" name="surname" required>
+        <input id="sub" type="submit" value="ADD">
+    </form>
         <% if (manager.length == 0) { %>
             <h1>No managers found!</h1>
             <% } else { %>
@@ -46,10 +61,12 @@
                             <th>Name</th>
                             <th>Surname</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <% manager.forEach((pro, _)=> { %>
+                            
                             <tr>
                                 <td>
                                     <%= pro.manager_id %>
@@ -61,11 +78,19 @@
                                     <%= pro.manager_surname %>
                                 </td>
                                 <td>
-                                    <button type="button" onclick="setModalFields(this)" data-toggle="modal"
+                                    <form method="post" action="/managers/delete">
+                                        <input type="hidden" name="id" value="<%= pro.manager_id%>">
+                                        <button type="submit">
+                                            DELETE
+                                        </button>
+                                </td>
+                                <td>
+                                    <button type="button" onclick="setUpdtFields(this)"
                                         data-id="<%= pro.manager_id %>" data-name="<%= pro.manager_name %>"
-                                        data-surname="<%= pro.manager_surname %>" data-target="#editModal">
+                                        data-surname="<%= pro.manager_surname %>">
                                         Edit
-                                    </button>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             <% }) %>
@@ -74,15 +99,12 @@
 
                 <% } %>
                     <script>
-                        function setModalFields(row) {
+                        function setUpdtFields(row) {
                             document.getElementById("manager_id").value = row.dataset.id;
                             document.getElementById("manager_name").value = row.dataset.name;
                             document.getElementById("manager_surname").value = row.dataset.surname;
-                            document.getElementById("modal-form").action = "/managers/update/" + row.dataset.id;
-                            document.getElementById("modal-form").method = "POST";
                         }
                     </script>
 
 </body>
-
 </html>

@@ -5,6 +5,6 @@ exports.getPrograms = async (req, res) => {
     const response = await db.query("SELECT * FROM program");
     res.render('programs.ejs',{
         pageTitle: "programs page",
-        programs: response.rows,
+        program: response.rows,
     })
 }

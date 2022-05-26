@@ -131,13 +131,7 @@ CREATE TABLE researcher (
 ALTER TABLE public.researcher OWNER TO postgres;
 
 
-CREATE
 
-CREATE SEQUENCE project_id_seq
-  
-
-CREATE SEQUENCE project_id_seq
-   SEQUENCE project_id_seq
 
 CREATE SEQUENCE project_id_seq
 
