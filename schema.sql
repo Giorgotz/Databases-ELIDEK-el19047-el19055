@@ -125,12 +125,10 @@ CREATE TABLE researcher (
     gender gender_enum DEFAULT 'U'::gender_enum NOT NULL,
     date_of_birth date NOT NULL,
     org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
-    contract_date date NOT NULL
+    contract_date date NOT NULL CHECK(date_of_birth + 18 * 365 + 4 < contract_date and contract_date < current_date)
 );
 
 ALTER TABLE public.researcher OWNER TO postgres;
-
-
 
 
 CREATE SEQUENCE project_id_seq
