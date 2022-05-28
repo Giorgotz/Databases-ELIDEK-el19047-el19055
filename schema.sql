@@ -147,7 +147,7 @@ CREATE TABLE project (
     funding decimal(10,2) DEFAULT 0.00 NOT NULL,
     starting_date date NOT NULL,
     final_date date NOT NULL check (final_date - starting_date> 0),
-    duration integer check (final_date - starting_date = 365 * duration or final_date - starting_date = 365 * duration + 1),
+    duration integer check ((final_date - starting_date = 365 * duration or final_date - starting_date = 365 * duration + 1) and duration >=1 and duration <=4),
     -- final-initial
     program_title varchar(50) NOT NULL,
     manager_id integer NOT NULL REFERENCES manager(manager_id),

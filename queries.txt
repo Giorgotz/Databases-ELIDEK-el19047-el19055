@@ -1,1 +1,35 @@
-CREATE VIEW projects_and_funding_per_researcher AS SELECT p.project_id, funding, researcher_name, researcher_surname FROM project p, researcher_on_project rp, researcher r WHERE p.project_id = rp.project_id AND rp.researcher_id = r.researcher_id;
+
+
+SELECT r.researcher_id, researcher_name, researcher_surname
+FROM (SELECT researcher_id, starting_date, final_date, duration, manager_id
+      FROM project p INNER JOIN researcher_on_project rp
+      ON p.project_id = rp.project_id ) t
+      INNER JOIN researcher r
+ON t.researcher_id = r.researcher_id
+WHERE t.starting_date - current_date < 0 AND t.final_date - current_date > 0 AND duration = 1 AND manager_id = 2;
+
+CREATE VIEW projects_and_funding_per_researcher AS SELECT r.researcher_id, r.researcher_name, r.researcher_surname, t.project_id, t.project_title, t.funding
+FROM (SELECT p.project_id, p.project_title, researcher_id, funding FROM project p INNER JOIN researcher_on_project rp ON rp.project_id = p.project_id) t
+INNER JOIN researcher r
+ON t.researcher_id = r.researcher_id
+ORDER BY t.researcher_id;
+
+
+CREATE VIEW projects_per_sf AS SELECT sf_subject, p.project_id, project_title, funding, duration
+FROM project p INNER JOIN scientific_field_of sf
+ON p.project_id = sf.project_id
+ORDER BY sf_subject;
+
+SELECT p.project_id, project_title
+FROM project p INNER JOIN scientific_field_of sf
+ON p.project_id = sf.project_id
+WHERE sf_subject ='Τεχνητή Νοημοσύνη' AND current_date - starting_date < 365;
+
+SELECT r.researcher_id, researcher_name, researcher_surname
+FROM (SELECT researcher_id
+      FROM (SELECT p.project_id
+            FROM project p INNER JOIN scientific_field_of sf
+            ON p.project_id = sf.project_id
+            WHERE sf.sf_subject = 'Τεχνητή Νοημοσύνη' AND current_date - starting_date < 365) t
+            INNER JOIN researcher_on_project rp ON t.project_id = rp.project_id) q
+            INNER JOIN researcher r ON q.researcher_id = r.researcher_id;
