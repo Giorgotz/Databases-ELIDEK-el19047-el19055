@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>"<%= pageTitle %>"</title>
+    <link rel="stylesheet" href="/includes/styles.css">
+</head>
+
+<body>
+    <%- include("includes/navigate.ejs") %>
+    <h1><%= org_name %></h1>
+
+    <div class="container">
+        <div class="row" id="row">
+            <div class="col-md-12">
+                <div class="card" id="card-container">
+                    <div class="card-body" id="card">
+                    <% if (tel.length == 0) { %> 
+                        <h1 style="margin-top: 5rem;">No tel numbers found!</h1>
+                    <% } else { %>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Telephone List <th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% tel.forEach((row, _) => { %>
+                                        <tr>
+                                            <td><%= row.t_number %></td>
+                                            <td>
+                                                <form action="/organisations/delete_telephone" method="post">
+                                                    <input type="hidden" name="org_name" value="<%= org_name %>">
+                                                    <input type="hidden" name="category" value="<%= cat %>">
+                                                    <input type="hidden" name="tel_number" value="<%= row.t_number %>">
+                                                    <button type="submit">DELETE</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    <% } %>
+                    <form action="/organisations/add_telephone" method="post">
+                        <input type="text" name="org_name" value="<%= org_name %>" readonly>
+                        <input type="hidden" name="category" value="<%= cat %>">
+                        <input type="number" name="tel_number">
+                    <button type="submit">ADD</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

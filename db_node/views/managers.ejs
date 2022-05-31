@@ -10,50 +10,25 @@
 </head>
 
 <body>
-    <!--<div id="editModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit</h4>
-                </div>
-                <div class="modal-body">
-                    <form id="modal-form">
-                        <div style="text-align: center;">
-                            <input type="text" name="id" id="manager_id" readonly></br>
-                            <input type="text" name="name" id="manager_name"></br>
-                            <input type="text" name="surname" id="manager_surname"></br>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" form="modal-form" class="btn btn-success">Update</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
-        </div>
-    </div>-->
     <%- include("includes/navigate.ejs") %>
-    <form id="upd_form" action = "/managers/update" method="POST">
-        <label>update</label></br>
-        <input type="text" name="id" id="manager_id" readonly>
-        <input type="text" name="name" id="manager_name" required>
-        <input type="text" name="surname" id="manager_surname" required>
-        <input type="submit" value="UPDATE">
-        <!--<input id="sub" type="submit" value="DELETE" onclick= "del()">-->
-    </form>
+
     
-    <form id="add_form" action = "/managers/add" method="POST">
+    <form id="add_form" action = "/managers/add" method="post">
         <label for="add">add</label></br>
         <input type="text" name="name" required>
         <input type="text" name="surname" required>
         <input id="sub" type="submit" value="ADD">
     </form>
-        <% if (manager.length == 0) { %>
+        <% if (managers.length == 0) { %>
             <h1>No managers found!</h1>
             <% } else { %>
+                <form id="upd_form" action = "/managers/update/" method="post">
+                    <label>update</label></br>
+                    <input type="text" name="id" id="manager_id" readonly required>
+                    <input type="text" name="name" id="manager_name"  required>
+                    <input type="text" name="surname" id="manager_surname" required>
+                    <input type="submit" value="UPDATE">
+                </form>
                 <table class="table">
                     <thead>
                         <tr>
@@ -65,32 +40,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% manager.forEach((pro, _)=> { %>
+                        <% managers.forEach((row, _)=> { %>
                             
                             <tr>
                                 <td>
-                                    <%= pro.manager_id %>
+                                    <%= row.manager_id %>
                                 </td>
                                 <td>
-                                    <%= pro.manager_name %>
+                                    <%= row.manager_name %>
                                 </td>
                                 <td>
-                                    <%= pro.manager_surname %>
+                                    <%= row.manager_surname %>
                                 </td>
                                 <td>
                                     <form method="post" action="/managers/delete">
-                                        <input type="hidden" name="id" value="<%= pro.manager_id%>">
+                                        <input type="hidden" name="id" value="<%= row.manager_id%>">
                                         <button type="submit">
                                             DELETE
                                         </button>
                                 </td>
                                 <td>
                                     <button type="button" onclick="setUpdtFields(this)"
-                                        data-id="<%= pro.manager_id %>" data-name="<%= pro.manager_name %>"
-                                        data-surname="<%= pro.manager_surname %>">
-                                        Edit
-                                        </button>
-                                    </form>
+                                        data-id="<%= row.manager_id %>" data-name="<%= row.manager_name %>"
+                                        data-surname="<%= row.manager_surname %>">
+                                        EDIT
+                                    </button>
+                                    
                                 </td>
                             </tr>
                             <% }) %>

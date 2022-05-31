@@ -1,12 +1,11 @@
 const db = require('../utils/database')
 
-
 exports.getManagers = async (req, res) => {
     try{
         const response = await db.query("SELECT * FROM manager");
         res.render('managers.ejs',{
             pageTitle: "managers page",
-            manager: response.rows,
+            managers: response.rows,
         })
     }
     catch(error) {
@@ -15,31 +14,7 @@ exports.getManagers = async (req, res) => {
     }
 }
 
-/* Controller to retrieve grades from database 
-exports.getManagers = (req, res, next) => {
-
-    check for messages in order to show them when rendering the page 
-    let messages = req.flash("messages");
-    if (messages.length == 0) messages = [];
-
-    client.connect();
-
-    client.query("SELECT * FROM manager",(err,conn) => {
-        if(!err) {
-            res.render('managers.ejs',{
-                pageTitle: "managers page",
-                manager: conn.rows,
-                messages: messages
-            })
-        }
-        else{
-            console.log(err,messages)
-        }
-    })
-} */
 exports.postManager = async (req, res, next) => {
-
-    /* get necessary data sent */
     const name = req.body.name;
     const surname = req.body.surname;
     try{
@@ -66,7 +41,6 @@ exports.postUpdateManager = async (req, res, next) => {
     res.redirect('/managers');
 };
 exports.deleteManager = async (req, res, next) => {
-    /* get necessary data sent */
     const id = parseInt(req.body.id);
     try{
         await db.query("DELETE FROM manager WHERE manager_id = $1",[id]);
