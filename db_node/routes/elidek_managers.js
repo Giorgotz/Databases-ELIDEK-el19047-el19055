@@ -7,4 +7,5 @@ router.get('/', managersController.getManagers);
 router.post('/update/', managersController.postUpdateManager)
 router.post('/add/', managersController.postManager)
 router.post('/delete/', managersController.deleteManager)
+
 module.exports = router;

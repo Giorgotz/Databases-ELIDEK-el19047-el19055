@@ -4,58 +4,126 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title> <%= pageTitle %> </title>
-   <!-- <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">-->
+    <title>
+        <%= pageTitle %>
+    </title>
     <link rel="stylesheet" href="/includes/styles.css">
 </head>
 
 <body>
     <%- include("includes/navigate.ejs") %>
-    <div class="container">
-        <div class="row" id="row">
-            <div class="col-md-12">
-                <div class="card" id="card-container">
-                    <div class="card-body" id="card">
-                    <% if (researcher.length == 0) { %> 
-                        <h1 style="margin-top: 5rem;">No researchers found!</h1>
-                    <% } else { %>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Surname</th>
-                                        <th>Gender</th>
-                                        <th>Date of Birth</th>
-                                        <th>Contract Date</th>
-                                        <th>Works for</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% researcher.forEach((pro, _) => { %>
-                                        <tr>
-                                            <td><%= pro.researcher_id %></td>
-                                            <td><%= pro.researcher_name %></td>
-                                            <td><%= pro.researcher_surname%></td>
-                                            <td><%= pro.gender%></td>
-                                            <td><%= pro.date_of_birth %></td>
-                                            <td><%= pro.contract_date %></td>
-                                            <td><%= pro.org_name %></td>
+    <form id="add_form" action="/researchers/add/" method="post">
+        <label>add</label></br>
+        <input type="text" name="researcher_name"   required>
+        <input type="text" name="researcher_surname" required>
+        <input type="date" name="date_of_birth" required>
+        <input type="date" name="contract_date" required>
+        <select name="gender">
+            <option value="M">M</option>
+            <option value="F">F</option>
+            <option value="U">U</option>
+        </select>
+        <select name="org_name">
+            <% orgs.forEach((row, _)=> { %>
+                <option value="<%= row.org_name %>"><%= row.org_name %></option>
+            <% }); %>
+        </select>
+        <input type="submit" value="ADD">
+    </form>
+        <% if (researchers.length==0) { %>
+            <h1 style="margin-top: 5rem;">No researchers found!</h1>
+            <% } else { %>
+                <form id="upd_form" action="/researchers/update/" method="post">
+                    <label>update</label></br>
+                    <input type="text" name="researcher_id" id="id_box" readonly required>
+                    <input type="text" name="researcher_name"  id="name_box" required>
+                    <input type="text" name="researcher_surname" id="surname_box" required>
+                    <input type="date" name="date_of_birth" id="birthday_box" >
+                    <input type="date" name="contract_date" id="contract_date_box" >
+                    <select id="gender_box" name="gender">
+                        <option value="M">M</option>
+                        <option value="F">F</option>
+                        <option value="U">U</option>
+                    </select>
+                    <input type="submit" value="UPDATE">
+                </form>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Surname</th>
+                                <th>Gender</th>
+                                <th>Date of Birth</th>
+                                <th>Contract Date</th>
+                                <th>Works for</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% researchers.forEach((row, _)=> { %>
+                                <tr>
+                                    <td>
+                                        <%= row.researcher_id %>
+                                    </td>
+                                    <td>
+                                        <%= row.researcher_name %>
+                                    </td>
+                                    <td>
+                                        <%= row.researcher_surname%>
+                                    </td>
+                                    <td>
+                                        <%= row.gender%>
+                                    </td>
+                                    <td>
+                                        <%= row.date_of_birth %>
+                                    </td>
+                                    <td>
+                                        <%= row.contract_date %>
+                                    </td>
+                                    <td>
+                                        <%= row.org_name %>
+                                    </td>
+                                    <td>
+                                        <form action="/researchers/details/" method="POST">
+                                            <input type="hidden" name="researcher_id" value="<%= row.researcher_id %>">
+                                            <button type="submit">
+                                                SEE DETAILS</button>
+                                            </form>
+                                    </td>
+                                    <td>
+                                        <form method="post" action="/researchers/delete">
+                                            <input type="hidden" name="researcher_id" value="<%= row.researcher_id %>">
+                                            <button type="submit">
+                                                DELETE
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <button type="button" onclick="setUpdtFields(this)"
+                                            data-researcher_id="<%= row.researcher_id %>" data-researcher_name="<%= row.researcher_name %>"
+                                            data-researcher_surname="<%= row.researcher_surname %>"
+                                            data-gender="<%= row.gender %>" data-date_of_birth="<%= row.date_of_birth %>"
+                                            data-contract_date="<%= row.contract_date %>"
+                                            data-org_name="<%= row.org_name %>">
+                                            EDIT
+                                        </button>
+                                    </td>
 
                                     <% }) %>
-                                </tbody>
-                            </table>
-                        </div>
+                        </tbody>
+                    </table>
                     <% } %>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                    <script>                        
+                        function setUpdtFields(row) {
+                            document.getElementById("name_box").value = row.dataset.researcher_name;
+                            document.getElementById("surname_box").value = row.dataset.researcher_surname;
+                            document.getElementById("birthday_box").value = row.dataset.date_of_birth;
+                            document.getElementById("contract_date_box").value = row.dataset.contract_date;
+                            document.getElementById("id_box").value = row.dataset.researcher_id;
+                            document.getElementById("gender_box").value = row.dataset.gender;
+                        }
+                    </script>
 
 </body>
 

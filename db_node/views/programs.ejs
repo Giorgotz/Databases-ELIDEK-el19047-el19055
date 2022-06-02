@@ -4,56 +4,74 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title> <%= pageTitle %> </title>
-   <!-- <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">-->
+    <title>
+        <%= pageTitle %>
+    </title>
     <link rel="stylesheet" href="/includes/styles.css">
 </head>
 
 <body>
     <%- include("includes/navigate.ejs") %>
-    <div class="container">
-        <div class="row" id="row">
-            <div class="col-md-12">
-                <div class="card" id="card-container">
-                    <div class="card-body" id="card">
-                    <% if (program.length == 0) { %> 
-                        <h1 style="margin-top: 5rem;">No programs found!</h1>
-                    <% } else { %>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Title
-                                            <select class="filter">
-                                                <option value="all">All
-                                                    
-                                                </option>
-                                            </select>
-                                        </th>
-                                        <th>Department</th>
-                                       
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% program.forEach((pro, _) => { %>
-                                        <tr>
-                                            <td><%= pro.title %></td>
-                                            <td><%= pro.department %></td>
-                                        </tr>
-                                    <% }) %>
-                                </tbody>
-                            </table>
-                        </div>
-                    <% } %>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
+
+        <form id="add_form" action="/programs/add/" method="post">
+            <label>add</label></br>
+            <input type="text" name="title" required>
+            <input type="text" name="department" required>
+            <input id="sub" type="submit" value="ADD">
+        </form>
+        <% if (programs.length==0) { %>
+            <h1 style="margin-top: 5rem;">No programs found!</h1>
+            <% } else { %>
+                <form id="upd_form" action="/programs/update/" method="post">
+                    <label>update</label></br>
+                    <input type="text" name="title" id="title_box" readonly required>
+                    <input type="text" name="department" id="department_box" required>
+                    <input type="submit" value="UPDATE">
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Department</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% programs.forEach((row, _)=> { %>
+                            <tr>
+                                <td>
+                                    <%= row.title %>
+                                </td>
+                                <td>
+                                    <%= row.department %>
+                                </td>
+                                <td>
+                                    <form method="post" action="/programs/delete">
+                                        <input type="hidden" name="title" value="<%= row.title %>">
+                                        <button type="submit">
+                                            DELETE
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <button type="button" onclick="setUpdtFields(this)"
+                                        data-title="<%= row.title %>" data-department="<%= row.department %>">
+                                        EDIT
+                                    </button>
+                                    
+                                </td>
+                            </tr>
+                            
+                            <% }) %>
+                    </tbody>
+                </table>
+                <% } %>
+                <script>
+                    function setUpdtFields(row) {
+                        document.getElementById("title_box").value = row.dataset.title;
+                        document.getElementById("department_box").value = row.dataset.department;
+                    }
+                </script>
 </body>
 
 </html>
