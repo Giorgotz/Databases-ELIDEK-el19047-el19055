@@ -176,7 +176,7 @@ CREATE TABLE researcher_on_project (
 ALTER TABLE public.researcher_on_project OWNER TO postgres;
 
 CREATE TABLE report (
-    project_id integer NOT NULL,
+    project_id integer NOT NULL REFERENCES project(project_id),
     report_title varchar(50) NOT NULL,
     report_summary text NOT NULL,
     due_date date NOT NULL,
@@ -187,3 +187,17 @@ ALTER TABLE public.report OWNER TO postgres;
 
 ALTER TABLE public.telephone_number ADD
     CONSTRAINT fk_tel FOREIGN KEY (org_name) REFERENCES organisation(org_name);
+
+
+CREATE FUNCTION assessorIsObjective() RETURNS trigger AS $$
+BEGIN
+    IF exists (SELECT * FROM project WHERE project_id = NEW.project_id and assessor_id = NEW.researcher_id) THEN rollback;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER objective_assessor
+    BEFORE INSERT OR UPDATE ON researcher_on_project
+    FOR EACH ROW
+    EXECUTE PROCEDURE assessorIsObjective();
