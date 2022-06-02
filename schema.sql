@@ -189,7 +189,7 @@ ALTER TABLE public.telephone_number ADD
     CONSTRAINT fk_tel FOREIGN KEY (org_name) REFERENCES organisation(org_name);
 
 
-CREATE FUNCTION assessorIsObjective() RETURNS trigger AS $$
+CREATE FUNCTION researcherNotAsesseor() RETURNS trigger AS $$
 BEGIN
     IF exists (SELECT * FROM project WHERE project_id = NEW.project_id and assessor_id = NEW.researcher_id) THEN rollback;
     END IF;
@@ -197,7 +197,20 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER objective_assessor
+CREATE FUNCTION assesorIsObjective() RETURNS trigger AS $$
+BEGIN
+    IF exists (SELECT * FROM researcher WHERE researcher_id = NEW.assessor_id and org_name = NEW.org_name) THEN rollback;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER valid_assessor
     BEFORE INSERT OR UPDATE ON researcher_on_project
     FOR EACH ROW
-    EXECUTE PROCEDURE assessorIsObjective();
+    EXECUTE PROCEDURE researcherNotAsesseor();
+
+CREATE TRIGGER objective_assessor
+    BEFORE INSERT OR UPDATE ON project
+    FOR EACH ROW
+    EXECUTE PROCEDURE assesorIsObjective();
