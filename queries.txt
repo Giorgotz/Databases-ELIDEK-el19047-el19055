@@ -33,3 +33,12 @@ FROM (SELECT researcher_id
             WHERE sf.sf_subject = 'Τεχνητή Νοημοσύνη' AND current_date - starting_date < 365) t
             INNER JOIN researcher_on_project rp ON t.project_id = rp.project_id) q
             INNER JOIN researcher r ON q.researcher_id = r.researcher_id;
+
+--3.6
+SELECT t.researcher_id, t.pr_number
+FROM (SELECT rp.researcher_id, count(distinct p.project_id) as pr_number
+      FROM researcher_on_project rp INNER JOIN project p ON rp.project_id= p.project_id
+      WHERE p.final_date-CURRENT_DATE > 0 AND CURRENT_DATE - p.starting_date > 0
+      GROUP BY rp.researcher_id) t INNER JOIN researcher r ON r.researcher_id = T.researcher_id
+WHERE r.date_of_birth + 40 * 365 + 10 - CURRENT_DATE > 0
+ORDER BY t.pr_number DESC;

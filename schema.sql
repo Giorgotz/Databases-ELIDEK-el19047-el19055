@@ -188,8 +188,11 @@ ALTER TABLE public.report OWNER TO postgres;
 ALTER TABLE public.telephone_number ADD
     CONSTRAINT fk_tel FOREIGN KEY (org_name) REFERENCES organisation(org_name);
 
+CREATE INDEX project_index ON project(project_id);
 
-CREATE FUNCTION researcherNotAsesseor() RETURNS trigger AS $$
+CREATE INDEX researcher_index ON researcher(researcher_id);
+
+CREATE FUNCTION researcherNotAsessor() RETURNS trigger AS $$
 BEGIN
     IF exists (SELECT * FROM project WHERE project_id = NEW.project_id and assessor_id = NEW.researcher_id) THEN rollback;
     END IF;
@@ -205,12 +208,28 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE FUNCTION TrustTheResearcher() RETURNS trigger AS $$
+BEGIN
+    IF exists (SELECT *
+              FROM researcher r , project p
+              WHERE r.researcher_id = NEW.researcher_id and p.project_id = NEW.project_id and p.org_name != r.org_name)
+              THEN rollback;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER valid_assessor
     BEFORE INSERT OR UPDATE ON researcher_on_project
     FOR EACH ROW
-    EXECUTE PROCEDURE researcherNotAsesseor();
+    EXECUTE PROCEDURE researcherNotAsessor();
 
 CREATE TRIGGER objective_assessor
     BEFORE INSERT OR UPDATE ON project
     FOR EACH ROW
     EXECUTE PROCEDURE assesorIsObjective();
+
+CREATE TRIGGER trustedWorker
+    BEFORE INSERT OR UPDATE ON researcher_on_project
+    FOR EACH ROW
+    EXECUTE PROCEDURE TrustTheResearcher();
