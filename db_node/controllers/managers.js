@@ -2,10 +2,20 @@ const db = require('../utils/database')
 
 exports.getManagers = async (req, res) => {
     try{
+        const sus = await db.query(`
+        SELECT mp.manager_id, mp.manager_name, mp.manager_surname, mp.org_name, sum(mp.funding) total_funding
+        FROM (SELECT m.manager_id, m.manager_name, m.manager_surname, p.project_id, p.org_name, p.funding
+             FROM manager m INNER JOIN project p ON m.manager_id = p.manager_id
+             WHERE exists (SELECT * FROM corporation c WHERE c.org_name = p.org_name)) mp
+        GROUP BY mp.manager_name, mp.manager_surname, mp.org_name, mp.manager_id
+        ORDER BY total_funding DESC
+        LIMIT 5;
+        `)
         const response = await db.query("SELECT * FROM manager");
         res.render('managers.ejs',{
             pageTitle: "managers page",
             managers: response.rows,
+            sus: sus.rows
         })
     }
     catch(error) {
