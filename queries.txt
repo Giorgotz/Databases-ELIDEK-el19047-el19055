@@ -36,6 +36,17 @@ FROM (SELECT researcher_id
             INNER JOIN researcher_on_project rp ON t.project_id = rp.project_id) q
             INNER JOIN researcher r ON q.researcher_id = r.researcher_id;
 
+--3.4
+SELECT distinct p1.org_name
+FROM (SELECT org_name, starting_year, count(distinct project_id) as projects_per_year
+      FROM  (SELECT project_id,org_name, extract(year from starting_date) starting_year FROM project) p
+      GROUP BY org_name, starting_year ) p1
+      INNER JOIN (SELECT org_name, starting_year, count(distinct project_id) as projects_per_year
+                  FROM  (SELECT project_id,org_name, extract(year from starting_date) starting_year FROM project) p
+                  GROUP BY org_name, starting_year) p2
+      ON p1.org_name = p2.org_name
+      WHERE p1.starting_year - p2.starting_year = 1 and p1.projects_per_year = p2.projects_per_year and p1.projects_per_year > 9;
+
 --3.5
 SELECT s1.sf_subject, s2.sf_subject, count(distinct s1.project_id) as comb_cntr
 FROM scientific_field_of s1 INNER JOIN scientific_field_of s2 ON s1.project_id = s2.project_id
@@ -52,6 +63,15 @@ FROM (SELECT rp.researcher_id, count(distinct p.project_id) as pr_number
       GROUP BY rp.researcher_id) t INNER JOIN researcher r ON r.researcher_id = t.researcher_id
 WHERE r.date_of_birth + 40 * 365 + 10 - CURRENT_DATE > 0
 ORDER BY t.pr_number DESC;
+
+--3.7
+SELECT mp.manager_name, mp.manager_surname, mp.org_name, sum(mp.funding) total_funding
+FROM (SELECT m.manager_id, m.manager_name, m.manager_surname, p.project_id, p.org_name, p.funding
+     FROM manager m INNER JOIN project p ON m.manager_id = p.manager_id
+     WHERE exists (SELECT * FROM corporation c WHERE c.org_name = p.org_name)) mp
+GROUP BY mp.manager_name, mp.manager_surname, mp.org_name
+ORDER BY total_funding DESC
+LIMIT 5;
 
 --3.8
 SELECT res.researcher_name, res.researcher_surname, pr.pr_number
