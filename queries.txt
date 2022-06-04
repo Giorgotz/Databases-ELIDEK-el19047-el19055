@@ -48,7 +48,7 @@ FROM (SELECT org_name, starting_year, count(distinct project_id) as projects_per
       WHERE p1.starting_year - p2.starting_year = 1 and p1.projects_per_year = p2.projects_per_year and p1.projects_per_year > 9;
 
 --3.5
-SELECT s1.sf_subject, s2.sf_subject, count(distinct s1.project_id) as comb_cntr
+SELECT s1.sf_subject subject1, s2.sf_subject subject2, count(distinct s1.project_id) as comb_cntr
 FROM scientific_field_of s1 INNER JOIN scientific_field_of s2 ON s1.project_id = s2.project_id
 WHERE s1.sf_subject < s2.sf_subject
 GROUP BY s1.sf_subject, s2.sf_subject
