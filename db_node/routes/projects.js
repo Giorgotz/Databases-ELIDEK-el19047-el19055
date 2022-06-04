@@ -4,6 +4,7 @@ const  projectsController = require('../controllers/projects');
 const router = express.Router();
 
 router.get('/', projectsController.getProjects);
+router.post('/', projectsController.filteredProjects);
 router.post('/delete', projectsController.deleteProject);
 router.post('/add', projectsController.postProject);
 router.post('/details', projectsController.getDetails);

@@ -24,6 +24,45 @@ exports.getProjects = async (req, res) => {
     }
 }
 
+exports.filteredProjects = async (req,res) => {
+    var manager_id = req.body.manager_id;
+    var starting_date = req.body.starting_date;
+    var duration = req.body.duration;
+    console.log(manager_id, starting_date, duration)
+    var query ="";
+    if (manager_id=="ANY")
+        query = query + ` manager_id IS NOT NULL`;
+    else{
+        query = query + ` manager_id = ${manager_id}`;
+    }
+    if (starting_date=="") {
+            starting_date = "1972-01-01";
+    }
+    query = query +" AND "
+    if(duration == ""){
+        query = query + `duration IS NOT NULL `;
+    }
+    else{
+        query = query + `duration = ${duration} `;
+    }
+    console.log(query)
+    console.log(query);
+    const response = await db.query(`SELECT project_id, project_title, summary, funding, starting_date::text,  final_date::text, program_title, manager_id, org_name, assessor_id, score, assessment_date::text FROM project
+                                        WHERE ${query} AND starting_date > $1`,[starting_date]);
+    const programs = await db.query("SELECT title FROM program")
+    const orgs = await db.query("SELECT org_name FROM organisation")
+    const managers = await db.query("SELECT * FROM manager")
+    const assessors = await db.query("SELECT researcher_id, researcher_name, researcher_surname FROM researcher")
+    res.render('projects.ejs', {
+        pageTitle: "projects page",
+        projects: response.rows,
+        programs: programs.rows,
+        orgs: orgs.rows,
+        managers: managers.rows,
+        assessors: assessors.rows
+    })
+}
+
 exports.deleteProject = async (req, res, next) => {
     const project_id = req.body.project_id;
     await db.query("DELETE FROM scientific_field_of WHERE project_id = $1", [project_id]);

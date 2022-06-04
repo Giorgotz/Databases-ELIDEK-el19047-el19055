@@ -14,6 +14,39 @@
 
 <body>
     <%- include("includes/navigate.ejs") %>
+    <form action="/projects" method="post">
+        <table>
+            <tr>
+                <th>
+                    Managed By
+                </th>
+                <th>
+                    Starts on
+                </th>
+                <th>
+                    Duration(years)
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <select name="manager_id">
+                            <option value="ANY">ANY</option>
+                        <% managers.forEach((row, _) => { %>
+                            <option value="<%= row.manager_id %>"><%= row.manager_id+" "+row.manager_name +" "+ row.manager_surname %></option>
+                        <% }); %>
+                    </select>
+                </td>
+                <td>
+                    <input type="date" name="starting_date"></br>
+                </td>
+                <td>
+                    <input type="number" name="duration"></br>
+                </td>
+            </tr>
+        </table>
+        <button type="submit">SEARCH</button>
+        <button type="reset">CLEAR</button>
+    </form>
     <form id="add_form" action="/projects/add/" method="post">
         <label>add</label></br>
         <label>Project title:</label>

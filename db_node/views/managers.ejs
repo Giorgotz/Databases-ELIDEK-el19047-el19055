@@ -71,7 +71,41 @@
                             <% }) %>
                     </tbody>
                 </table>
-
+            </br>
+        </br>
+                <% if (sus.length==0) { %>
+                    <h2>There are no suspicious managers... </h2>
+                    <% } else {   %>
+                        <h2>They look kinda sus:</h2>
+                        <table>
+                                <tr>
+                                    <th>Manager ID</th>
+                                    <th>Name</th>
+                                    <th>Surname</th>
+                                    <th>Benefited Organisation</th>
+                                    <th>Total amount granted</th>
+                                </tr>
+                                <% sus.forEach((row, _)=> { %>
+                                    <tr>
+                                        <td>
+                                            <%= row.manager_id %>
+                                        </td>
+                                        <td>
+                                            <%= row.manager_name %>
+                                        </td>
+                                        <td>
+                                            <%= row.manager_surname %>
+                                        </td>
+                                        <td>
+                                            <%= row.org_name %>
+                                        </td>
+                                        <td>
+                                            <%= row.total_funding %>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                        </table>
+                        <% } %>
                 <% } %>
                     <script>
                         function setUpdtFields(row) {

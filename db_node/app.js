@@ -9,6 +9,7 @@ const elidek_programs = require('./routes/elidek_programs');
 const organisations = require('./routes/organisations');
 const researchers = require('./routes/researchers');
 const projects = require('./routes/projects');
+const home = require('./routes/home');
 /* end of ROUTES and how to import routes */
 
 const app = express();
@@ -31,6 +32,7 @@ app.use('/programs', elidek_programs);
 app.use('/organisations', organisations);
 app.use('/researchers', researchers);
 app.use('/projects',projects);
+app.use('/home', home);
 /* End of routes used by the project*/
 
 // In case of an endpoint does not exist must return 404.html

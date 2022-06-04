@@ -74,7 +74,7 @@ exports.getDetails = async (req, res,next) => {
 
 async function details(req, res, name, surname, id) {
     try{
-        const projectlist = await db.query('SELECT project_id, project_title FROM project')
+        const projectlist = await db.query('SELECT p.project_id, p.project_title FROM project p , researcher r WHERE p.org_name = r.org_name AND r.researcher_id = $1',[id]);
         const response = await db.query("SELECT  p.project_id , p.project_title FROM project p , researcher_on_project rp  , researcher r WHERE p.project_id = rp.project_id AND rp.researcher_id = r.researcher_id AND r.researcher_id = $1",[id]);
         res.render('resdetails.ejs',{
             pageTitle: "researcher details page",
