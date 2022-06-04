@@ -78,7 +78,7 @@ CREATE TABLE telephone_number (
 ALTER TABLE public.telephone_number OWNER TO postgres;
 
 CREATE TABLE research_center (
-    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name) ON DELETE CASCADE,
     private_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
     public_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
     PRIMARY KEY (org_name)
@@ -87,7 +87,7 @@ CREATE TABLE research_center (
 ALTER TABLE public.research_center OWNER TO postgres;
 
 CREATE TABLE university (
-    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name) ON DELETE CASCADE,
     public_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
     PRIMARY KEY (org_name)
 );
@@ -95,7 +95,7 @@ CREATE TABLE university (
 ALTER TABLE public.university OWNER TO postgres;
 
 CREATE TABLE corporation (
-    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name) ON DELETE CASCADE,
     private_funds decimal(10,2) DEFAULT 0.00 NOT NULL,
     PRIMARY KEY (org_name)
 );
@@ -124,7 +124,7 @@ CREATE TABLE researcher (
     researcher_surname varchar(20) NOT NULL,
     gender gender_enum DEFAULT 'U'::gender_enum NOT NULL,
     date_of_birth date NOT NULL,
-    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name) ON DELETE CASCADE,
     contract_date date NOT NULL CHECK(date_of_birth + 18 * 365 + 4 < contract_date and contract_date < current_date)
 );
 
@@ -148,11 +148,10 @@ CREATE TABLE project (
     starting_date date NOT NULL,
     final_date date NOT NULL check (final_date - starting_date> 0),
     duration integer check ((final_date - starting_date = 365 * duration or final_date - starting_date = 365 * duration + 1) and duration >=1 and duration <=4),
-    -- final-initial
     program_title varchar(50) NOT NULL,
-    manager_id integer NOT NULL REFERENCES manager(manager_id),
-    org_name varchar(55) NOT NULL REFERENCES organisation(org_name),
-    assessor_id integer NOT NULL REFERENCES researcher(researcher_id),
+    manager_id integer NOT NULL REFERENCES manager(manager_id) ON DELETE RESTRICT,
+    org_name varchar(55) NOT NULL REFERENCES organisation(org_name) ON DELETE CASCADE,
+    assessor_id integer NOT NULL REFERENCES researcher(researcher_id) ON DELETE RESTRICT,
     score integer NOT NULL,
     assessment_date date NOT NULL
 );
@@ -160,23 +159,23 @@ CREATE TABLE project (
 ALTER TABLE public.project OWNER TO postgres;
 
 CREATE TABLE scientific_field_of (
-    sf_subject varchar(25) NOT NULL REFERENCES scientific_field(sf_subject),
-    project_id integer NOT NULL REFERENCES project(project_id),
+    sf_subject varchar(25) NOT NULL REFERENCES scientific_field(sf_subject) ON DELETE CASCADE,
+    project_id integer NOT NULL REFERENCES project(project_id) ON DELETE CASCADE,
     PRIMARY KEY (sf_subject, project_id)
 );
 
 ALTER TABLE public.scientific_field_of OWNER TO postgres;
 
 CREATE TABLE researcher_on_project (
-    researcher_id integer NOT NULL REFERENCES researcher(researcher_id),
-    project_id integer NOT NULL REFERENCES project(project_id),
+    researcher_id integer NOT NULL REFERENCES researcher(researcher_id) ON DELETE CASCADE,
+    project_id integer NOT NULL REFERENCES project(project_id) ON DELETE CASCADE,
     PRIMARY KEY (researcher_id,project_id)
 );
 
 ALTER TABLE public.researcher_on_project OWNER TO postgres;
 
 CREATE TABLE report (
-    project_id integer NOT NULL REFERENCES project(project_id),
+    project_id integer NOT NULL REFERENCES project(project_id) ON DELETE CASCADE,
     report_title varchar(50) NOT NULL,
     report_summary text NOT NULL,
     due_date date NOT NULL,
@@ -186,23 +185,17 @@ CREATE TABLE report (
 ALTER TABLE public.report OWNER TO postgres;
 
 ALTER TABLE public.telephone_number ADD
-    CONSTRAINT fk_tel FOREIGN KEY (org_name) REFERENCES organisation(org_name);
+    CONSTRAINT fk_tel FOREIGN KEY (org_name) REFERENCES organisation(org_name) ON DELETE CASCADE;
 
 CREATE INDEX project_index ON project(project_id);
 
 CREATE INDEX researcher_index ON researcher(researcher_id);
 
-CREATE FUNCTION researcherNotAsessor() RETURNS trigger AS $$
-BEGIN
-    IF exists (SELECT * FROM project WHERE project_id = NEW.project_id and assessor_id = NEW.researcher_id) THEN rollback;
-    END IF;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
 CREATE FUNCTION assesorIsObjective() RETURNS trigger AS $$
 BEGIN
-    IF exists (SELECT * FROM researcher WHERE researcher_id = NEW.assessor_id and org_name = NEW.org_name) THEN rollback;
+    IF exists (SELECT * FROM researcher WHERE researcher_id = NEW.assessor_id and org_name = NEW.org_name)
+               THEN DELETE FROM project WHERE project_id = NEW.project_id;
+               raise info 'Assessor cant works for organisation that owns the project';
     END IF;
     RETURN NEW;
 END;
@@ -213,23 +206,41 @@ BEGIN
     IF exists (SELECT *
               FROM researcher r , project p
               WHERE r.researcher_id = NEW.researcher_id and p.project_id = NEW.project_id and p.org_name != r.org_name)
-              THEN rollback;
+              THEN DELETE FROM researcher_on_project WHERE project_id = NEW.project_id AND researcher_id = NEW.researcher_id;
+              raise info 'Researcher must works for the organisation that owns the project';
     END IF;
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER valid_assessor
-    BEFORE INSERT OR UPDATE ON researcher_on_project
-    FOR EACH ROW
-    EXECUTE PROCEDURE researcherNotAsessor();
+CREATE FUNCTION deleteOrg() RETURNS trigger AS $$
+BEGIN
+    DELETE FROM organisation WHERE organisation.org_name = OLD.org_name;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
 CREATE TRIGGER objective_assessor
-    BEFORE INSERT OR UPDATE ON project
+    AFTER INSERT OR UPDATE ON project
     FOR EACH ROW
     EXECUTE PROCEDURE assesorIsObjective();
 
 CREATE TRIGGER trustedWorker
-    BEFORE INSERT OR UPDATE ON researcher_on_project
+    AFTER INSERT OR UPDATE ON researcher_on_project
     FOR EACH ROW
     EXECUTE PROCEDURE TrustTheResearcher();
+
+CREATE TRIGGER uniDelete
+    AFTER DELETE ON university
+    FOR EACH ROW
+    EXECUTE PROCEDURE deleteOrg();
+
+CREATE TRIGGER corpDelete
+    AFTER DELETE ON corporation
+    FOR EACH ROW
+    EXECUTE PROCEDURE deleteOrg();
+
+CREATE TRIGGER resCenterDelete
+    AFTER DELETE ON research_center
+    FOR EACH ROW
+    EXECUTE PROCEDURE deleteOrg();

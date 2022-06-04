@@ -808,3 +808,14 @@ insert into scientific_field_of (sf_subject, project_id) values ('Επιστήμ
 insert into scientific_field_of (sf_subject, project_id) values ('Επιστήμη Δεδομένων', 48);
 insert into scientific_field_of (sf_subject, project_id) values ('Ωκεανογραφία', 32);
 insert into scientific_field_of (sf_subject, project_id) values ('Τεχνολογία Τροφίφων', 57);
+
+CREATE VIEW projects_and_funding_per_researcher AS SELECT r.researcher_id, r.researcher_name, r.researcher_surname, t.project_id, t.project_title, t.funding
+FROM (SELECT p.project_id, p.project_title, researcher_id, funding FROM project p INNER JOIN researcher_on_project rp ON rp.project_id = p.project_id) t
+INNER JOIN researcher r
+ON t.researcher_id = r.researcher_id
+ORDER BY t.researcher_id;
+
+CREATE VIEW projects_per_sf AS SELECT sf_subject, p.project_id, project_title, funding, duration
+FROM project p INNER JOIN scientific_field_of sf
+ON p.project_id = sf.project_id
+ORDER BY sf_subject;
