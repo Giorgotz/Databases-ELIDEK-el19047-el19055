@@ -153,7 +153,8 @@ CREATE TABLE project (
     org_name varchar(55) NOT NULL REFERENCES organisation(org_name) ON DELETE CASCADE,
     assessor_id integer NOT NULL REFERENCES researcher(researcher_id) ON DELETE RESTRICT,
     score integer NOT NULL,
-    assessment_date date NOT NULL
+    assessment_date date NOT NULL,
+    scientific_manager_id integer NOT NULL REFERENCES researcher(researcher_id) ON DELETE RESTRICT
 );
 
 ALTER TABLE public.project OWNER TO postgres;
