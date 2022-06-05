@@ -410,40 +410,40 @@ insert into project (project_title, summary, funding, starting_date, final_date,
 insert into project (project_title, summary, funding, starting_date, final_date, duration, program_title, manager_id, org_name, assessor_id, score, assessment_date) values ('Project Data and Genetics', 'This is a project about Data Science and Genetics', 5276567.78, '2020-09-11', '2022-09-11', 2, 'Εικοστό Πέμπτο', 25, 'Δημόκριτος', 68, 80, '2020-01-28');
 insert into project (project_title, summary, funding, starting_date, final_date, duration, program_title, manager_id, org_name, assessor_id, score, assessment_date) values ('Project Materials, Fluid & Bioinformatics', 'This is a project about Materials, Fluid Mechanics and Bioinformatics', 4212243.86, '2020-12-25', '2022-12-25', 2, 'Εικοστό Έβδομο', 5, 'Δημόκριτος', 10, 73, '2020-08-10');
 
-insert into report (project_id, report_title, report_summary, due_date) values (13, 'Report 1', 'ullamcorper augue a suscipit nulla elit ac nulla sed vel enim', '2019-01-06 03:28:40');
-insert into report (project_id, report_title, report_summary, due_date) values (3, 'Report 1', 'tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est', '2019-03-03 02:57:50');
-insert into report (project_id, report_title, report_summary, due_date) values (31, 'Report 1', 'posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis consequat dui nec nisi volutpat', '2021-10-30 09:22:51');
-insert into report (project_id, report_title, report_summary, due_date) values (12, 'Report 1', 'ante nulla justo aliquam quis turpis eget elit sodales scelerisque', '2019-09-16 18:08:32');
-insert into report (project_id, report_title, report_summary, due_date) values (13, 'Report 2', 'pede venenatis non sodales sed tincidunt eu felis fusce posuere felis sed lacus', '2021-03-18 00:14:42');
-insert into report (project_id, report_title, report_summary, due_date) values (54, 'Report 1', 'vel ipsum praesent blandit lacinia erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer', '2020-05-30 01:24:15');
-insert into report (project_id, report_title, report_summary, due_date) values (10, 'Report 1', 'mauris enim leo rhoncus sed vestibulum sit amet cursus id turpis', '2019-10-30 08:38:56');
-insert into report (project_id, report_title, report_summary, due_date) values (12, 'Report 2', 'tortor id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque viverra pede ac', '2021-08-03 17:11:46');
-insert into report (project_id, report_title, report_summary, due_date) values (14, 'Report 1', 'vitae ipsum aliquam non mauris morbi non lectus aliquam sit amet diam in', '2020-06-16 00:25:13');
-insert into report (project_id, report_title, report_summary, due_date) values (33, 'Report 1', 'cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi cras', '2020-07-01 02:27:50');
-insert into report (project_id, report_title, report_summary, due_date) values (15, 'Report 1', 'tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat', '2022-04-21 03:55:51');
-insert into report (project_id, report_title, report_summary, due_date) values (5, 'Report 1', 'felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed', '2020-06-02 20:14:08');
-insert into report (project_id, report_title, report_summary, due_date) values (35, 'Report 1', 'metus sapien ut nunc vestibulum ante ipsum primis in faucibus orci luctus et', '2021-07-26 00:08:03');
-insert into report (project_id, report_title, report_summary, due_date) values (7, 'Report 1', 'massa id lobortis convallis tortor risus dapibus augue vel accumsan tellus nisi eu orci', '2019-12-27 12:02:37');
-insert into report (project_id, report_title, report_summary, due_date) values (1, 'Report 1', 'tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus', '2019-02-11 20:13:00');
-insert into report (project_id, report_title, report_summary, due_date) values (57, 'Report 1', 'mauris ullamcorper purus sit amet nulla quisque arcu libero rutrum ac lobortis vel dapibus at diam nam tristique', '2019-04-12 07:11:43');
-insert into report (project_id, report_title, report_summary, due_date) values (11, 'Report 1', 'sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet', '2021-05-18 13:53:39');
-insert into report (project_id, report_title, report_summary, due_date) values (26, 'Report 1', 'justo nec condimentum neque sapien placerat ante nulla justo aliquam', '2021-02-23 07:56:14');
-insert into report (project_id, report_title, report_summary, due_date) values (17, 'Report 1', 'sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus id sapien', '2019-03-07 16:54:55');
-insert into report (project_id, report_title, report_summary, due_date) values (35, 'Report 2', 'vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum', '2019-05-20 17:05:35');
-insert into report (project_id, report_title, report_summary, due_date) values (26, 'Report 2', 'volutpat dui maecenas tristique est et tempus semper est quam pharetra', '2020-03-01 09:15:07');
-insert into report (project_id, report_title, report_summary, due_date) values (11, 'Report 2', 'natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis', '2020-12-08 02:55:40');
-insert into report (project_id, report_title, report_summary, due_date) values (14, 'Report 2', 'quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie', '2020-04-18 10:28:48');
-insert into report (project_id, report_title, report_summary, due_date) values (50, 'Report 1', 'vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis orci eget orci', '2022-05-15 04:18:30');
-insert into report (project_id, report_title, report_summary, due_date) values (53, 'Report 1', 'orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer', '2020-06-08 02:46:53');
-insert into report (project_id, report_title, report_summary, due_date) values (12, 'Report 3', 'lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna', '2021-05-09 18:40:12');
-insert into report (project_id, report_title, report_summary, due_date) values (26, 'Report 3', 'varius ut blandit non interdum in ante vestibulum ante ipsum primis in faucibus orci luctus', '2020-09-10 05:11:55');
-insert into report (project_id, report_title, report_summary, due_date) values (41, 'Report 1', 'quis orci nullam molestie nibh in lectus pellentesque at nulla', '2020-08-05 14:25:04');
-insert into report (project_id, report_title, report_summary, due_date) values (13, 'Report 3', 'turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis', '2021-02-21 07:25:09');
-insert into report (project_id, report_title, report_summary, due_date) values (40, 'Report 1', 'fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend', '2022-03-02 00:02:48');
-insert into report (project_id, report_title, report_summary, due_date) values (34, 'Report 1', 'quisque porta volutpat erat quisque erat eros viverra eget congue eget semper rutrum nulla nunc purus', '2020-12-24 08:51:42');
-insert into report (project_id, report_title, report_summary, due_date) values (23, 'Report 1', 'dapibus duis at velit eu est congue elementum in hac habitasse platea dictumst morbi vestibulum velit id pretium iaculis diam', '2021-09-16 05:54:56');
-insert into report (project_id, report_title, report_summary, due_date) values (22, 'Report 1', 'volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium iaculis justo in hac', '2020-03-18 22:47:36');
-insert into report (project_id, report_title, report_summary, due_date) values (20, 'Report 1', 'massa volutpat convallis morbi odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus', '2021-11-23 18:25:34');
+insert into report (project_id, report_title, report_summary, due_date) values (13, 'Report 1', 'This is a report for the project Data and AI 3', '2019-01-06 ');
+insert into report (project_id, report_title, report_summary, due_date) values (3, 'Report 1', 'This is a report for the project Data 3', '2019-03-03 ');
+insert into report (project_id, report_title, report_summary, due_date) values (31, 'Report 1', 'This is a report for the project Physics', '2021-10-30');
+insert into report (project_id, report_title, report_summary, due_date) values (12, 'Report 1', 'This is a report for the project Data and AI 2', '2019-09-16');
+insert into report (project_id, report_title, report_summary, due_date) values (13, 'Report 2', 'This is the second report for project Data and AI 3', '2021-03-18');
+insert into report (project_id, report_title, report_summary, due_date) values (54, 'Report 1', 'This is a report for project Energy and Physics', '2020-05-30');
+insert into report (project_id, report_title, report_summary, due_date) values (10, 'Report 1', 'This is a report for project Data 10', '2019-10-30');
+insert into report (project_id, report_title, report_summary, due_date) values (12, 'Report 2', 'This is the second report for project Data and AI 2', '2021-08-03');
+insert into report (project_id, report_title, report_summary, due_date) values (14, 'Report 1', 'This is a report for project Data and AI 4', '2020-06-16');
+insert into report (project_id, report_title, report_summary, due_date) values (33, 'Report 1', 'This is a report for project Telecommunications and Applied Mathematics', '2020-07-01');
+insert into report (project_id, report_title, report_summary, due_date) values (15, 'Report 1', 'This is a report for project Data and AI and Aeronautics', '2022-04-21');
+insert into report (project_id, report_title, report_summary, due_date) values (5, 'Report 1', 'This is a report for project Data 5', '2020-06-02');
+insert into report (project_id, report_title, report_summary, due_date) values (35, 'Report 1', 'This is a report for project Physics 2', '2021-07-26');
+insert into report (project_id, report_title, report_summary, due_date) values (7, 'Report 1', 'This is a report for project Data 7', '2019-12-27');
+insert into report (project_id, report_title, report_summary, due_date) values (1, 'Report 1', 'This is a report for project Data 1', '2019-12-11');
+insert into report (project_id, report_title, report_summary, due_date) values (57, 'Report 1', 'This is a report for project Food Technology, Fluid Mechanics, Finance and Bioinformatics', '2019-04-12');
+insert into report (project_id, report_title, report_summary, due_date) values (11, 'Report 1', 'This is a report for project Data and AI 1', '2021-05-18');
+insert into report (project_id, report_title, report_summary, due_date) values (26, 'Report 1', 'This is a report for project Marketing, Physics and Business Management', '2021-02-23');
+insert into report (project_id, report_title, report_summary, due_date) values (17, 'Report 1', 'This is a report for project AI 2', '2019-03-07');
+insert into report (project_id, report_title, report_summary, due_date) values (35, 'Report 2', 'This is the second report for project Physics 2', '2019-05-20');
+insert into report (project_id, report_title, report_summary, due_date) values (26, 'Report 2', 'This is the second report for project Marketing, Physics and Business Management', '2020-03-01');
+insert into report (project_id, report_title, report_summary, due_date) values (11, 'Report 2', 'This is the second report for project Data and AI 1', '2020-12-08');
+insert into report (project_id, report_title, report_summary, due_date) values (14, 'Report 2', 'This is the second report for project Data and AI 4', '2020-04-18');
+insert into report (project_id, report_title, report_summary, due_date) values (50, 'Report 1', 'This is a report for project Logistics, Aeronautics and Marketing', '2022-05-15');
+insert into report (project_id, report_title, report_summary, due_date) values (53, 'Report 1', 'This is a report for Oceanography and Astronomy', '2020-06-08');
+insert into report (project_id, report_title, report_summary, due_date) values (12, 'Report 3', 'This is the third report for project Data and AI 2', '2021-05-09');
+insert into report (project_id, report_title, report_summary, due_date) values (26, 'Report 3', 'This is the third report for project Marketing, Physics and Business Management', '2020-09-10');
+insert into report (project_id, report_title, report_summary, due_date) values (41, 'Report 1', 'This is a report for project Energy and Geology', '2020-08-05');
+insert into report (project_id, report_title, report_summary, due_date) values (13, 'Report 3', 'This is the third report for project Data and AI 3', '2021-02-21');
+insert into report (project_id, report_title, report_summary, due_date) values (40, 'Report 1', 'This is a report for project Business Management and Energy', '2022-03-02');
+insert into report (project_id, report_title, report_summary, due_date) values (34, 'Report 1', 'This is a report for project Data 11', '2020-12-24');
+insert into report (project_id, report_title, report_summary, due_date) values (23, 'Report 1', 'This is a report for project AI and Finance', '2021-09-16');
+insert into report (project_id, report_title, report_summary, due_date) values (22, 'Report 1', 'This is a report for project AI 6', '2020-03-18');
+insert into report (project_id, report_title, report_summary, due_date) values (20, 'Report 1', 'This is a report for project AI 5', '2021-11-23');
 
 insert into researcher_on_project (researcher_id, project_id) values (1, 41);
 insert into researcher_on_project (researcher_id, project_id) values (2, 55);
@@ -826,6 +826,11 @@ insert into scientific_field_of (sf_subject, project_id) values ('Επιστήμ
 insert into scientific_field_of (sf_subject, project_id) values ('Ωκεανογραφία', 71);
 insert into scientific_field_of (sf_subject, project_id) values ('Τεχνολογία Τροφίφων', 71);
 
+CREATE INDEX project_index ON project(project_id);
+
+CREATE INDEX researcher_index ON researcher(researcher_id);
+
+CREATE INDEX org_index ON organisation(org_name);
 
 CREATE VIEW projects_and_funding_per_researcher AS SELECT r.researcher_id, r.researcher_name, r.researcher_surname, t.project_id, t.project_title, t.funding
 FROM (SELECT p.project_id, p.project_title, researcher_id, funding FROM project p INNER JOIN researcher_on_project rp ON rp.project_id = p.project_id) t

@@ -187,9 +187,6 @@ ALTER TABLE public.report OWNER TO postgres;
 ALTER TABLE public.telephone_number ADD
     CONSTRAINT fk_tel FOREIGN KEY (org_name) REFERENCES organisation(org_name) ON DELETE CASCADE;
 
-CREATE INDEX project_index ON project(project_id);
-
-CREATE INDEX researcher_index ON researcher(researcher_id);
 
 CREATE FUNCTION assesorIsObjective() RETURNS trigger AS $$
 BEGIN
@@ -213,6 +210,17 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE FUNCTION newWork() RETURNS trigger AS $$
+BEGIN
+    IF exists (SELECT *
+              FROM researcher r
+              WHERE r.researcher_id = NEW.researcher_id and NEW.org_name != OLD.org_name)
+              THEN DELETE FROM researcher_on_project rp WHERE rp.researcher_id = NEW.researcher_id;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE FUNCTION deleteOrg() RETURNS trigger AS $$
 BEGIN
     DELETE FROM organisation WHERE organisation.org_name = OLD.org_name;
@@ -229,6 +237,11 @@ CREATE TRIGGER trustedWorker
     AFTER INSERT OR UPDATE ON researcher_on_project
     FOR EACH ROW
     EXECUTE PROCEDURE TrustTheResearcher();
+
+CREATE TRIGGER newEra
+    AFTER UPDATE ON researcher
+    FOR EACH ROW
+    EXECUTE PROCEDURE newWork();
 
 CREATE TRIGGER uniDelete
     AFTER DELETE ON university
