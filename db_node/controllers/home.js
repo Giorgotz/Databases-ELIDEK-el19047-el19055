@@ -1,7 +1,6 @@
 const db = require('../utils/database')
 
 exports.getAll = async (req, res, next) => {
-    try{
     const fields = await db.query('SELECT * FROM scientific_field');
     const over10 = await db.query(`
     SELECT distinct p1.org_name
@@ -41,10 +40,7 @@ exports.getAll = async (req, res, next) => {
             WHERE p.final_date-CURRENT_DATE > 0 AND CURRENT_DATE - p.starting_date > 0 and not exists (SELECT * FROM report rep WHERE rep.project_id= p.project_id)
             GROUP BY rp.researcher_id) t INNER JOIN researcher r ON r.researcher_id = t.researcher_id
       WHERE t.pr_number  > 4) pr INNER JOIN researcher res ON pr.researcher_id = res.researcher_id;
-    `)}
-    catch (e) {
-        console.log(e);
-    }
+    `)
     res.render('home.ejs', {
         pageTitle: "HOME SWEET HOME",
         all_sf_fields: fields.rows,
@@ -57,7 +53,6 @@ exports.getAll = async (req, res, next) => {
 
 exports.fields = async (req, res, next) => {
     const sf_field = req.body.sf_subject;
-    try{
     const projects = await db.query(`
         SELECT p.project_id, project_title
         FROM project p INNER JOIN scientific_field_of sf
@@ -74,10 +69,7 @@ exports.fields = async (req, res, next) => {
                 INNER JOIN researcher_on_project rp ON t.project_id = rp.project_id) q
                 INNER JOIN researcher r ON q.researcher_id = r.researcher_id;
     
-    `,[sf_field]);}
-    catch (e) {
-        console.log(e);
-    }
+    `,[sf_field]);
     res.render('trending_field.ejs',{
         pageTitle: "Info on trending field",
         projects: projects.rows,
