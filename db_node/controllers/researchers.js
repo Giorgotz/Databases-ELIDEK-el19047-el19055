@@ -2,8 +2,9 @@ const db = require('../utils/database')
 
 /* Controller to retrieve grades from database */
 exports.getResearchers = async (req, res) => {
-    const researchers = await db.query("SELECT researcher_id, researcher_name, researcher_surname, gender, date_of_birth::text, contract_date::text, org_name FROM researcher");
+    const researchers = await db.query("SELECT researcher_id, researcher_name, researcher_surname, gender, age(current_date,date_of_birth), date_of_birth::text, contract_date::text, org_name FROM researcher");
     const orgs = await db.query("SELECT org_name FROM organisation");
+    console.log(researchers.rows[0].age.years);
     res.render('researchers.ejs',{
         pageTitle: "researchers page",
         researchers: researchers.rows,

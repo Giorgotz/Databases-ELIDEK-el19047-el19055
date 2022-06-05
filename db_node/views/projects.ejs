@@ -47,47 +47,110 @@
         <button type="submit">SEARCH</button>
         <button type="reset">CLEAR</button>
     </form>
+</br>
+</br>
+<h3>ADD PROJECT</h3>
     <form id="add_form" action="/projects/add/" method="post">
-        <label>add</label></br>
-        <label>Project title:</label>
-        <input type="text" name="project_title" required></br>
-        <label>Project funds:</label>
-        <input type="number" name="funding" required></br>
-        <label>Commence date:</label>
-        <input type="date" name="starting_date" required></br>
-        <label>Final date:</label>
-        <input type="date" name="final_date" required></br>
-        <label>Related program</label>
-        <select name="program_title">
-            <% programs.forEach((row, _) => { %>
-                <option value="<%= row.title %>"><%= row.title %></option>
-            <% }); %>
-        </select></br>
-        <label>Manager in charge:</label>
-        <select name="manager_id">
-            <% managers.forEach((row, _) => { %>
-                <option value="<%= row.manager_id %>"><%= row.manager_id +' ' + row.manager_name+' '+row.manager_surname %></option>
-            <% }); %>
-        </select></br>
-        <label>Organisation:</label>
-        <select name="org_name">
-            <% orgs.forEach((row, _) => { %>
-                <option value="<%= row.org_name %>"><%= row.org_name %></option>
-            <% }); %>
-        </select></br>
-        <label>Assesor:</label>
-        <select name="assessor_id">
-            <% assessors.forEach((row, _) => { %>
-                <option value="<%= row.researcher_id %>"><%= row.researcher_id + ' ' + row.researcher_name + ' ' + row.researcher_surname %></option>
-            <% }); %>
-        </select></br>
-        <label>Assessment_date:</label>
-        <input type="date" name="assessment_date" required></br>
-        <label>assessment score:</label>
-        <input type="number" name="score"></br>
-        <label>Summary:</label>
-        <textarea name="summary"></textarea></br>
-        <input type="submit" value="ADD">
+        <table>
+            <tr><td>
+                <label>Project title:</label>
+            </td>
+        <td>
+            <input type="text" name="project_title" required>
+        </td></tr>
+            <tr>
+                <td>
+                    <label>Project funds:</label>
+                </td>
+                <td>
+                    <input type="number" name="funding" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Commence date:</label>
+                </td>
+                <td>
+                    <input type="date" name="starting_date" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Final date:</label>
+                </td>
+                <td>
+                    <input type="date" name="final_date" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Related program</label>
+                </td>
+                <td>
+                    <select name="program_title">
+                        <% programs.forEach((row, _) => { %>
+                            <option value="<%= row.title %>"><%= row.title %></option>
+                        <% }); %>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Manager in charge:</label>
+                </td>
+                <td>
+                    <select name="manager_id">
+                        <% managers.forEach((row, _) => { %>
+                            <option value="<%= row.manager_id %>"><%= row.manager_id +' ' + row.manager_name+' '+row.manager_surname %></option>
+                        <% }); %>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Organisation:</label>
+                </td>
+                <td>
+                    <select name="org_name">
+                        <% orgs.forEach((row, _) => { %>
+                            <option value="<%= row.org_name %>"><%= row.org_name %></option>
+                        <% }); %>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Assesor:</label>
+                </td>
+                <td>
+                    <select name="assessor_id">
+                        <% assessors.forEach((row, _) => { %>
+                            <option value="<%= row.researcher_id %>"><%= row.researcher_id + ' ' + row.researcher_name + ' ' + row.researcher_surname %></option>
+                        <% }); %>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Assessment_date:</label>
+                </td>
+                <td>
+                    <input type="date" name="assessment_date" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Assessment score:</label>
+                </td>
+                <td>
+                    <input type="number" name="score"></br>
+                </td>
+            </tr>
+       <tr><td><label>Summary:</label></td>
+        <td><textarea name="summary"></textarea></td></tr>
+        
+    </table>
+        <button type="submit" value="ADD">NEW PROJECT</button>
     </form>
                     <% if (projects.length == 0) { %> 
                         <h1 style="margin-top: 5rem;">No projects found!</h1>

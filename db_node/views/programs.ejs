@@ -15,16 +15,30 @@
 
 
         <form id="add_form" action="/programs/add/" method="post">
-            <label>add</label></br>
-            <input type="text" name="title" required>
-            <input type="text" name="department" required>
-            <input id="sub" type="submit" value="ADD">
+            <table>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Department
+                    </th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><input type="text" name="title" required></td>
+                    <td><input type="text" name="department" required></td>
+                    <td><input id="sub" type="submit" value="ADD"></td>
+                </tr>
+
+            </table>
+            
+            
         </form>
         <% if (programs.length==0) { %>
             <h1 style="margin-top: 5rem;">No programs found!</h1>
             <% } else { %>
                 <form id="upd_form" action="/programs/update/" method="post">
-                    <label>update</label></br>
                     <input type="text" name="title" id="title_box" readonly required>
                     <input type="text" name="department" id="department_box" required>
                     <input type="submit" value="UPDATE">

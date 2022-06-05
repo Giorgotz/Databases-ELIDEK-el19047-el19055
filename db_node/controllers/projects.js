@@ -20,7 +20,7 @@ exports.getProjects = async (req, res) => {
     }
     catch (err) {
         console.log(err);
-        res.redirect('/managers')
+        res.redirect('/home')
     }
 }
 
@@ -47,6 +47,7 @@ exports.filteredProjects = async (req,res) => {
     }
     console.log(query)
     console.log(query);
+    try{
     const response = await db.query(`SELECT project_id, project_title, summary, funding, starting_date::text,  final_date::text, program_title, manager_id, org_name, assessor_id, score, assessment_date::text FROM project
                                         WHERE ${query} AND starting_date > $1`,[starting_date]);
     const programs = await db.query("SELECT title FROM program")
@@ -60,15 +61,21 @@ exports.filteredProjects = async (req,res) => {
         orgs: orgs.rows,
         managers: managers.rows,
         assessors: assessors.rows
-    })
+    })}
+    catch (error) {
+        res.redirect('/projects')
+    }
 }
 
 exports.deleteProject = async (req, res, next) => {
     const project_id = req.body.project_id;
+    try{
     await db.query("DELETE FROM scientific_field_of WHERE project_id = $1", [project_id]);
     await db.query("DELETE FROM report WHERE project_id = $1", [project_id]);
     await db.query("DELETE FROM researcher_on_project WHERE project_id = $1", [project_id]);
     await db.query("DELETE FROM project WHERE project_id = $1", [project_id]);
+    }
+    catch(err){console.log(err);}
     res.redirect('/projects');
 }
 
@@ -147,7 +154,6 @@ exports.postUpdateProject = async (req, res, next) => {
     const assessment_date = req.body.assessment_date;
     const manager_id = req.body.manager_id;
     const summary = req.body.summary;
-    console.log([project_title, funding, starting_date, final_date, program_title, score, assessor_id, assessment_date, manager_id, summary, project_id]);
     try {
         await db.query(` UPDATE project SET project_title=$1, funding=$2, 
         starting_date=$3, final_date=$4, program_title=$5, 
@@ -156,7 +162,6 @@ exports.postUpdateProject = async (req, res, next) => {
         details(req, res, project_id);
     }
     catch (err) {
-        console.log('here\n');
         console.log(err);
         res.redirect('/projects');
     }

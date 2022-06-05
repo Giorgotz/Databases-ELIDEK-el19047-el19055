@@ -14,34 +14,89 @@
 <body>
     <%- include("includes/navigate.ejs") %>
     <form id="add_form" action="/organisations/add/" method="post">
-        <label>update</label></br>
-        <input type="text" name="org_name" readonly required>
-        <input type="text" name="abbreviation" required>
-        <input type="text" name="street" required>
-        <input type="text" name="street_number">
-        <input type="text" name="postal_code" required>
-        <input type="text" name="city" required>
-        <select name="category">
-            <option value="university">University</option>
-            <option value="research_center">Research center</option>
-            <option value="corporation">Corporation</option>
-        </select>
-        <input type="submit" value="ADD">
+        <label>ADD NEW ORGANISATION</label></br>
+        <table>
+            <tr>
+                <td>
+                    Organisation Name
+                </td>
+                <td>
+                    Abbreviation
+                </td>
+                <td>
+                    Street
+                </td>
+                <td>
+                    Street Number
+                </td>
+                <td>
+                    Postal Code
+                </td>
+                <td>
+                    City
+                </td>
+                <td>
+                    Type
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="org_name" readonly required>
+                </td>
+                <td><input type="text" name="abbreviation" required></td>
+                <td> <input type="text" name="street" required></td>
+                <td> <input type="text" name="street_number"></td>
+                <td><input type="text" name="postal_code" required></td>
+                <td>   <input type="text" name="city" required></td>
+                <td> <select name="category">
+                    <option value="university">University</option>
+                    <option value="research_center">Research center</option>
+                    <option value="corporation">Corporation</option>
+                </select></td>
+                <td><input type="submit" value="ADD"></td>
+            </tr>
+        </table>        
     </form>
+</br>
         <% if (orgs.length==0) { %>
   
 
             <h1 style="margin-top: 5rem;">No organisations found!</h1>
             <% } else {   %>
                 <form id="upd_form" action="/organisations/update/" method="post">
-                    <label>update</label></br>
-                    <input type="text" name="org_name" id="org_name_box" readonly required>
-                    <input type="text" name="abbreviation" id="abbreviation_box" required>
-                    <input type="text" name="street" id="street_box" required>
-                    <input type="text" name="street_number" id="street_number_box">
-                    <input type="text" name="postal_code" id="postal_code_box" required>
-                    <input type="text" name="city" id="city_box" required>
-                    <input type="submit" value="UPDATE">
+                    <label>UPDATE</label></br>
+                    <table>
+                        <tr>
+                            <td>
+                                Organisation Name
+                            </td>
+                            <td>
+                                Abbreviation
+                            </td>
+                            <td>
+                                Street
+                            </td>
+                            <td>
+                                Street Number
+                            </td>
+                            <td>
+                                Postal Code
+                            </td>
+                            <td>
+                                City
+                            </td>
+                            <td></td>
+                        </tr>
+                   <tr>
+                       <td><input type="text" name="org_name" id="org_name_box" readonly required></td>
+                       <td><input type="text" name="abbreviation" id="abbreviation_box" required></td>
+                        <td><input type="text" name="street" id="street_box" required></td>
+                            <td><input type="text" name="street_number" id="street_number_box"></td>
+                                <td><input type="text" name="postal_code" id="postal_code_box" required></td>
+                                    <td><input type="text" name="city" id="city_box" required></td>
+                                        <td> <input type="submit" value="UPDATE"></td></tr>
+                    
                 </form>
                 <table class="table">
                     <thead>

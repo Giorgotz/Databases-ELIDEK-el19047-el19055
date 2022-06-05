@@ -14,20 +14,38 @@
 
     
     <form id="add_form" action = "/managers/add" method="post">
-        <label for="add">add</label></br>
-        <input type="text" name="name" required>
-        <input type="text" name="surname" required>
-        <input id="sub" type="submit" value="ADD">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td><input type="text" name="name" required></td>
+                <td><input type="text" name="surname" required></td>
+                <td><input id="sub" type="submit" value="ADD"></td>
+            </tr>
+        </table>
     </form>
         <% if (managers.length == 0) { %>
             <h1>No managers found!</h1>
             <% } else { %>
                 <form id="upd_form" action = "/managers/update/" method="post">
-                    <label>update</label></br>
-                    <input type="text" name="id" id="manager_id" readonly required>
-                    <input type="text" name="name" id="manager_name"  required>
-                    <input type="text" name="surname" id="manager_surname" required>
-                    <input type="submit" value="UPDATE">
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="id" id="manager_id" readonly required></td>
+                            <td><input type="text" name="name" id="manager_name"  required></td>
+                            <td><input type="text" name="surname" id="manager_surname" required></td>
+                            <td><input type="submit" value="UPDATE"></td>
+                        </tr>
+                    </table>
                 </form>
                 <table class="table">
                     <thead>
