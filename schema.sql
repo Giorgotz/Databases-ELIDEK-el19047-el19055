@@ -188,9 +188,10 @@ ALTER TABLE public.telephone_number ADD
     CONSTRAINT fk_tel FOREIGN KEY (org_name) REFERENCES organisation(org_name) ON DELETE CASCADE;
 
 
-CREATE FUNCTION assesorIsObjective() RETURNS trigger AS $$
+CREATE FUNCTION assesorIsObjectiveAndManagerTrusted() RETURNS trigger AS $$
 BEGIN
-    IF exists (SELECT * FROM researcher WHERE researcher_id = NEW.assessor_id and org_name = NEW.org_name)
+    IF exists (SELECT * FROM researcher
+               WHERE researcher_id = NEW.assessor_id and org_name = NEW.org_name or  researcher_id = NEW.scientific_manager_id and org_name <> NEW.org_name)
                THEN DELETE FROM project WHERE project_id = NEW.project_id;
                raise info 'Assessor cant works for organisation that owns the project';
     END IF;
@@ -202,13 +203,14 @@ CREATE FUNCTION TrustTheResearcher() RETURNS trigger AS $$
 BEGIN
     IF exists (SELECT *
               FROM researcher r , project p
-              WHERE r.researcher_id = NEW.researcher_id and p.project_id = NEW.project_id and p.org_name != r.org_name)
+              WHERE r.researcher_id = NEW.researcher_id and p.project_id = NEW.project_id and p.org_name <> r.org_name)
               THEN DELETE FROM researcher_on_project WHERE project_id = NEW.project_id AND researcher_id = NEW.researcher_id;
               raise info 'Researcher must works for the organisation that owns the project';
     END IF;
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
 
 CREATE FUNCTION newWork() RETURNS trigger AS $$
 BEGIN
@@ -228,10 +230,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER objective_assessor
+CREATE TRIGGER objective_assessor_and_trusted_manager
     AFTER INSERT OR UPDATE ON project
     FOR EACH ROW
-    EXECUTE PROCEDURE assesorIsObjective();
+    EXECUTE PROCEDURE assesorIsObjectiveAndManagerTrusted();
 
 CREATE TRIGGER trustedWorker
     AFTER INSERT OR UPDATE ON researcher_on_project
