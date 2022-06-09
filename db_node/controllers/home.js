@@ -54,7 +54,7 @@ exports.getAll = async (req, res, next) => {
 exports.fields = async (req, res, next) => {
     const sf_field = req.body.sf_subject;
     const projects = await db.query(`
-        SELECT p.project_id, project_title
+        SELECT p.project_id, p.org_name, project_title
         FROM project p INNER JOIN scientific_field_of sf
         ON p.project_id = sf.project_id
         WHERE sf_subject =$1 AND current_date - starting_date < 365

@@ -11,12 +11,12 @@
 <body>
     <%- include("includes/navigate.ejs") %>
     <aside>
-        <form id="upd_form" action="/projects/update/" method="post" 
+        <form id="upd_form" action="/projects/update" method="post" 
         data-project_title="<%= project.project_title %>" data-funding="<%= project.funding %>"
         data-starting_date="<%= project.starting_date %>" data-final_date="<%= project.final_date %>"
         data-program_title="<%= project.program_title %>" data-manager_id="<%= project.manager_id %>"
         data-score="<%= project.score %>" data-assessment_date="<%= project.assessment_date %>"
-        data-summary="<%= project.summary %>" data-assessor_id="<%= project.assessor_id %>">
+        data-summary="<%= project.summary %>" data-assessor_id="<%= project.assessor_id %>" data-scientific_manager_id="<%= project.scientific_manager_id %>">
             <table>
                 <tr>
                     <td><label>Project title:</label></td>
@@ -52,6 +52,18 @@
                         <select name="manager_id" id="manager_id_box">
                             <% managers.forEach((row, _) => { %>
                                 <option value="<%= row.manager_id %>"><%= row.manager_id +' ' + row.manager_name+' '+row.manager_surname %></option>
+                            <% }); %>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Scientific manager</label>
+                    </td>
+                    <td>
+                        <select name="scientific_manager_id" id="scientific_manager_id_box">
+                            <% add_researchers.forEach((row, _) => { %>
+                                <option value="<%= row.researcher_id %>"><%= row.researcher_id +' ' + row.researcher_name+' '+row.researcher_surname %></option>
                             <% }); %>
                         </select>
                     </td>
@@ -254,10 +266,12 @@
                         document.getElementById('assessment_date_box').value = forma.assessment_date;
                         document.getElementById('summary_box').value = forma.summary;
                         document.getElementById('score_box').value = forma.score;
+                        document.getElementById('scientific_manager_id_box').value = forma.scientific_manager_id;
                     }
                     reset();
 
                 </script>
+                <%- include("includes/bottom.ejs") %>
 </body>
 
 </html>

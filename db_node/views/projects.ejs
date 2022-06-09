@@ -120,6 +120,18 @@
             </tr>
             <tr>
                 <td>
+                    <label>Scientific manager</label>
+                </td>
+                <td>
+                    <select name="scientific_manager_id" id="scientific_manager_id_box">
+                        <% assessors.forEach((row, _) => { %>
+                            <option value="<%= row.researcher_id %>"><%= row.researcher_id +' ' + row.researcher_name+' '+row.researcher_surname %></option>
+                        <% }); %>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <label>Assesor:</label>
                 </td>
                 <td>
@@ -201,6 +213,7 @@
                                 </tbody>
                             </table>
                     <% } %>
+                    <%- include("includes/bottom.ejs") %>
 </body>
 
 </html>

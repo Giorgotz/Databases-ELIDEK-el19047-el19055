@@ -15,8 +15,6 @@ exports.postUpdateOrg = async (req, res, next) => {
     const street = req.body.street;
     const city = req.body.city;
     const street_number = parseInt(req.body.street_number);
-    console.log(street_number);
-    console.log();
     const postal_code = req.body.postal_code;
     try {
         if (isNaN(street_number)) {
@@ -99,7 +97,6 @@ async function details(res, org_name, category) {
     try {
         const numbers = await db.query("SELECT t_number FROM telephone_number WHERE org_name = $1", [org_name]);
         const budgets = await db.query(`SELECT * FROM ${stringify(category)} WHERE org_name = $1`, [org_name]);
-        console.log(budgets.rows[0]);
         res.render('orgdetails.ejs', {
             pageTitle: "Details page",
             numbers: numbers.rows,

@@ -4,7 +4,6 @@ const db = require('../utils/database')
 exports.getResearchers = async (req, res) => {
     const researchers = await db.query("SELECT researcher_id, researcher_name, researcher_surname, gender, age(current_date,date_of_birth), date_of_birth::text, contract_date::text, org_name FROM researcher");
     const orgs = await db.query("SELECT org_name FROM organisation");
-    console.log(researchers.rows[0].age.years);
     res.render('researchers.ejs',{
         pageTitle: "researchers page",
         researchers: researchers.rows,
@@ -19,7 +18,6 @@ exports.postUpdateResearcher = async (req, res) => {
     const date_of_birth = req.body.date_of_birth;
     const contract_date = req.body.contract_date;
     const gender = req.body.gender;
-    console.log(date_of_birth);
     try{
         await db.query(`UPDATE researcher SET researcher_name = $1 , researcher_surname = $2 , date_of_birth = $5 , contract_date = $6 , gender = $3
                      WHERE researcher_id = $4 `,[name,surname,gender,id, date_of_birth, contract_date]);
@@ -38,8 +36,6 @@ exports.postResearcher = async (req, res) => {
     const contract_date = req.body.contract_date;
     const gender = req.body.gender;
     const org_name = req.body.org_name;
-    console.log(date_of_birth);
-    console.log(org_name);
     try{
         await db.query(`INSERT INTO researcher (researcher_name , researcher_surname , date_of_birth , contract_date, gender,
                      org_name) VALUES ($1, $2, $3, $4, $5, $6)`,[name,surname,date_of_birth,contract_date,gender,org_name]);

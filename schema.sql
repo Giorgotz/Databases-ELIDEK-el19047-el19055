@@ -148,7 +148,7 @@ CREATE TABLE project (
     starting_date date NOT NULL,
     final_date date NOT NULL check (final_date - starting_date> 0),
     duration integer check ((final_date - starting_date = 365 * duration or final_date - starting_date = 365 * duration + 1) and duration >=1 and duration <=4),
-    program_title varchar(50) NOT NULL,
+    program_title varchar(50) NOT NULL REFERENCES program(title),
     manager_id integer NOT NULL REFERENCES manager(manager_id) ON DELETE RESTRICT,
     org_name varchar(55) NOT NULL REFERENCES organisation(org_name) ON DELETE CASCADE,
     assessor_id integer NOT NULL REFERENCES researcher(researcher_id) ON DELETE RESTRICT,

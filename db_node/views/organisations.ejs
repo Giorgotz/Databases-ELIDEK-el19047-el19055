@@ -42,7 +42,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="text" name="org_name" readonly required>
+                    <input type="text" name="org_name" required>
                 </td>
                 <td><input type="text" name="abbreviation" required></td>
                 <td> <input type="text" name="street" required></td>
@@ -163,6 +163,7 @@
                             document.getElementById("abbreviation_box").value = row.dataset.abbreviation;
                         }
                     </script>
+                    <%- include("includes/bottom.ejs") %>
 </body>
 
 </html>

@@ -18,7 +18,6 @@ exports.postProgram = async (req, res, next) => {
     }
     catch(err){
         console.error(err);
-        res.status(409).json({error: "Username is already taken"});
     }
     res.redirect('/programs');
 
